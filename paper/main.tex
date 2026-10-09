@@ -1,0 +1,1390 @@
+% INTERNAL DRAFT -- NOT FOR DISTRIBUTION, NOT TO BE POSTED OR UPLOADED.
+% Computations referenced as computations/{homology,sage,milp}/... (repository-relative).
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[expansion=false]{microtype}
+\usepackage{booktabs,array}
+\usepackage{xcolor}
+\usepackage[a4paper,margin=28mm]{geometry}
+\usepackage[backend=biber,style=alphabetic,maxbibnames=9,sorting=nyt]{biblatex}
+\addbibresource{refs.bib}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black}
+\setlength{\emergencystretch}{2em}
+
+\newcommand{\todo}[1]{{\color{red}\textbf{[TODO:} #1\textbf{]}}}
+
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{mainthm}{Theorem}
+\renewcommand{\themainthm}{\Alph{mainthm}}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{problem}[theorem]{Problem}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\CP}{\mathbf{CP}}
+\newcommand{\Z}{\mathbf Z}
+\newcommand{\Q}{\mathbf Q}
+\newcommand{\R}{\mathbf R}
+\newcommand{\C}{\mathbf C}
+\newcommand{\F}{\mathbf F}
+\newcommand{\PP}{\mathbf P}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\SM}{SM}
+\DeclareMathOperator{\Morse}{Morse}
+\DeclareMathOperator{\Crit}{Crit}
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Bl}{Bl}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Gr}{Gr}
+\newcommand{\id}{\mathrm{id}}
+
+\title[Fixed points below the stable Morse number in dimension ten]{Hamiltonian fixed points below the stable Morse number in dimension ten, and an obstruction in dimension six}
+\author{[AUTHOR NAME]}
+\date{October 9, 2026 (internal; not for distribution)}
+
+\begin{document}
+
+\begin{abstract}
+We construct a simply connected closed K\"ahler manifold $M$ of real
+dimension ten and a Hamiltonian diffeomorphism of $M$ with only
+nondegenerate fixed points whose number is $\lambda(M)-4=\SM(M)-4$, where
+$\lambda$ is the integral Morse count and $\SM$ is the stable Morse number.
+The count equals the cyclic integral Floer bound of Bai--Xu, which is
+therefore sharp already in complex dimension five. The new ingredients are
+a simply connected threefold $F$ with Brauer-type $2$-torsion, obtained as a
+resolved $\Z/5$-quotient of an invariant Artin--Mumford double solid, a
+divisor $S\subset F$ with $\pi_1(S)=\Z/5$, and a blow-up along a center
+that meets the fixed locus of the Hamiltonian involution transversally, so
+that no new fixed components appear. In the other direction, the Bai--Xu bound excludes simply connected
+counterexamples in real dimension six, and in real dimension eight every
+construction of the type of Proposition~\ref{prop:perturb} (a finite-order
+element of a Hamiltonian torus action plus a small invariant perturbation)
+yields at least $\lambda(M)$ fixed points. Among simply connected closed
+symplectic manifolds of real dimension at least six, the minimal dimension
+of a counterexample to the stable Morse bound is therefore $8$ or $10$.
+\end{abstract}
+
+\maketitle
+
+\noindent\textbf{Status.} Internal draft. Theorem numbers cited from
+\cite{OpenAI22} refer to its October~5, 2026 build. Every point that has
+not been checked against the primary literature is marked \todo{\dots}.
+Nothing in this document has been circulated.
+
+\tableofcontents
+
+%======================================================================
+\section{Introduction}\label{sec:intro}
+
+\subsection{Stable Morse number and Hamiltonian fixed points}
+Let $W$ be a connected closed smooth manifold. Its \emph{stable Morse
+number} $\SM(W)$ is the minimum of $\#\Crit(\Phi)$ over $k\ge 0$ and Morse
+functions $\Phi\colon W\times\R^k\to\R$ that coincide with a nondegenerate
+quadratic form in the $\R^k$-variables outside a compact set; the case
+$k=0$ is the ordinary Morse number $\Morse(W)\ge\SM(W)$. For a closed
+symplectic manifold $(M,\omega)$ and a one-periodic Hamiltonian $H$ all of
+whose fixed points are nondegenerate, the \emph{stable Morse formulation}
+of the Arnold problem asks whether
+\begin{equation}\label{eq:SMconj}
+  \#\Fix_0(\phi_H^1;H)\ \ge\ \SM(M),
+\end{equation}
+where $\Fix_0$ denotes fixed points with contractible orbits; see
+\cite[Conjecture~1.2]{Golovko2020}. Positive results are known under
+asphericity hypotheses \cite{DRG2017}. Counterexamples on simply connected
+K\"ahler manifolds were found in \cite{OpenAIStable,OpenAI22,OpenAICompanion},
+the smallest previously recorded fixed dimension being real dimension $22$
+\cite{OpenAI22}; a non-simply-connected counterexample to the ordinary
+Morse-number bound in real dimension $12$ is given in \cite{OpenAISept23}.
+
+For a closed manifold $W$ put
+\[
+  b(W)=\sum_i\rank H_i(W;\Z),\qquad t_i(W)=d(\Tor H_i(W;\Z)),\qquad
+  \lambda(W)=b(W)+2\sum_i t_i(W),
+\]
+where $d$ is the minimal number of generators. Then $\SM(W)\ge\lambda(W)$
+for every closed $W$ \cite[Prop.~2.2]{OpenAI22}, with equality for simply
+connected $W$ of dimension $\ge 6$ by Smale's theorem
+(\S\ref{subsec:morse}).
+
+\subsection{Main results}
+The following theorem lowers the dimension of a simply connected
+counterexample from $22$ to $10$.
+
+\begin{mainthm}\label{thmA}
+There exist a simply connected closed K\"ahler manifold $(M,\omega)$ of
+complex dimension $5$ and a smooth one-periodic Hamiltonian $H$ on $M$
+such that every fixed point of $\phi_H^1$ is nondegenerate and
+\[
+  \#\Fix(\phi_H^1)=\#\Fix_0(\phi_H^1;H)=\lambda(M)-4=\SM(M)-4=\Morse(M)-4 .
+\]
+Moreover the minimal Chern number of $M$ is $1$ and
+$\#\Fix(\phi_H^1)$ equals the cyclic integral Floer bound
+$\lambda_1(M)$ of Bai--Xu (Definition~\ref{def:lambdaN}); this bound is
+therefore attained in complex dimension $5$.
+\end{mainthm}
+
+The gap $4$ does not depend on any free Betti number. For the resolution
+chosen in \S\ref{sec:F} we obtain $\SM(M)=524$ and $\#\Fix=520$
+(Remark~\ref{rem:absolute}).
+
+\begin{mainthm}\label{thmB}
+Let $(M,\omega)$ be a closed symplectic manifold with a Hamiltonian action
+of a torus $T$, and let $g\in T$ have finite order. Suppose that every
+connected component $C_1,\dots,C_r$ of $\Fix(g)$ has real dimension at
+most $6$ (this holds whenever $\dim_\R M=8$ and $g$ does not act
+trivially). Then
+\[
+  \sum_{j=1}^r\lambda(C_j)\ \ge\ \lambda(M).
+\]
+Consequently, if $\dim_\R M=8$, every Hamiltonian diffeomorphism
+$\psi^\epsilon\circ g$ produced by Proposition~\ref{prop:perturb} has at
+least $\lambda(M)$ nondegenerate fixed points, and at least $\SM(M)$ if
+$M$ is simply connected.
+\end{mainthm}
+
+Theorem~\ref{thmB} is complemented by necessary conditions valid for every
+simply connected eight-dimensional counterexample
+(Proposition~\ref{prop:nec8}): the minimal Chern number must be $1$, and
+the dominant primes of $\Tor H_2(M;\Z)$ and $\Tor H_3(M;\Z)$ must differ.
+All previously known simply connected constructions
+\cite{OpenAIStable,OpenAI22,OpenAICompanion} and the construction of
+Theorem~\ref{thmA} are of the type excluded by Theorem~\ref{thmB} in
+dimension $8$. In dimension $6$ the Bai--Xu bound already excludes
+simply connected counterexamples (Proposition~\ref{prop:six}); real
+dimensions $2$ and $4$ are discussed in \S\ref{sec:six}. In summary:
+
+\begin{corollary}\label{cor:mindim}
+Among simply connected closed symplectic manifolds of real dimension at
+least $6$, the minimal dimension of a counterexample to
+\eqref{eq:SMconj} is $8$ or $10$.
+\end{corollary}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+real dim & status & reference\\
+\midrule
+$2$ & no counterexample & \S\ref{sec:six}\\
+$4$ & simply connected: open, reduces to $\SM$ vs.\ $\lambda$ & \S\ref{sec:six}\\
+$6$ & no simply connected counterexample & Prop.~\ref{prop:six}\\
+$8$ & open; excluded within the finite-order/torus mechanism & Theorem~\ref{thmB}, Prop.~\ref{prop:nec8}\\
+$10$ & simply connected K\"ahler counterexample, Floer bound sharp & Theorem~\ref{thmA}\\
+$12$ & non-simply-connected counterexample to the Morse-number bound & \cite{OpenAISept23}\\
+$12$, $16$ & simply connected K\"ahler counterexamples & Remarks~\ref{rem:dim12}, \ref{rem:dim16}\\
+$22$ & simply connected K\"ahler family, unbounded deficit & \cite{OpenAI22}\\
+\bottomrule
+\end{tabular}
+\caption{Current status by dimension (nondegenerate Hamiltonians).}
+\label{tab:status}
+\end{table}
+
+\subsection{Previous work versus our contributions}
+\emph{Previous work.} The mechanism of \cite{OpenAIStable,OpenAI22,OpenAICompanion}
+takes $M=X\times Y$, where $X$ is a simply connected K\"ahler manifold
+with torsion at two primes and $Y$ is $\CP^1\times\CP^1$ blown up at four
+torus-fixed points; the half-turn $g_Y$ of a Hamiltonian circle action on $Y$
+fixes four lines, and a small invariant perturbation of $\id_X\times g_Y$
+has $4\lambda(X\times\CP^1)$ fixed points. Because $d$ takes the
+\emph{maximum} over primes in each degree, convolution of the torsion
+profile of $X$ with the free profiles $(1,1)$ of $\CP^1$ and $(1,6,1)$ of
+$Y$ can make $\lambda(X\times Y)>4\lambda(X\times\CP^1)$. The torsion of
+$X$ comes from blow-ups of a free ambient space along bielliptic surfaces
+and their products, and the resulting examples live in real dimension
+$22$ \cite{OpenAI22} (and $3332$ in \cite{OpenAICompanion}, where the
+cyclic Floer bound is attained). Independently, \cite[Thm.~1.1]{OpenAISept23}
+gives a nondegenerate counterexample to the \emph{ordinary} Morse-number
+bound on a closed symplectic manifold of real dimension $12$ with
+fundamental group $A_5^k$ (not simply connected), with
+$\#\Fix=\chi(M)+128<\Morse(M)$; there the effect comes from $\pi_1$, not
+from torsion. A degenerate six-dimensional example on a quadric with three
+fixed points, for the critical-point count, is in \cite{OpenAIDegenerate}.
+The stable Morse bound is formulated in \cite{Golovko2020}; Bai--Xu
+\cite{BaiXu2022,BaiXu2026} prove the cyclic integral lower bound. Ma's
+preprint \cite[Thm.~1.5]{Ma2013} asserts that the minimal number of fixed
+points equals the Morse number; see \S\ref{subsec:Ma}.
+
+\emph{Where the previous method fails.} The product mechanism cannot work
+below real dimension $12$ (Proposition~\ref{prop:productfail}): for a
+simply connected $X$ of real dimension $\le 6$ the torsion of $X$ is a
+single group placed in degrees $2,3$, and no exchange of dominant prime
+can occur. Moreover blow-ups of a free ambient space never create torsion
+in degree $2$, which is forced in dimension $8$ by
+Proposition~\ref{prop:nec8}.
+
+\emph{Our contributions.}
+\begin{enumerate}
+\item A new torsion source: a simply connected threefold $F$ with
+  $\Tor H_2(F)=\Tor H_3(F)=\Z/2$ and \emph{no} $5$-torsion, containing a
+  smooth divisor $S$ with $\pi_1(S)=\Z/5$ (\S\ref{sec:F}). The proof that
+  the $5$-torsion vanishes uses a permutation-module structure of
+  $H_2$ of an Artin--Mumford double solid and Lefschetz duality.
+\item A non-product construction: the blow-up of $F\times Y$ along
+  $W=S\times(L_0\sqcup L_2)$, where $L_0,L_2\subset Y$ are invariant lines
+  meeting the fixed curves transversally. The transverse center lemma
+  (Lemma~\ref{lem:transverse}) shows that this blow-up adds torsion to the
+  fixed components only in a controlled way and creates no new fixed
+  components (\S\ref{sec:ten}). This gives Theorem~\ref{thmA}: the first
+  simply connected example below the stable Morse number in real dimension
+  $<22$, and a counterexample to the Morse-number assertion of
+  \cite{Ma2013} on a simply connected K\"ahler manifold of real dimension
+  $10$.
+\item In dimension $8$, necessary conditions together with the
+  unconditional mechanism obstruction Theorem~\ref{thmB}, based on
+  perfectness of moment maps over every prime field
+  (Lemma~\ref{lem:perfect}, a specialization of the Borel--Smith
+  inequality; we do not claim novelty for it).
+\item A heuristic explanation of why the transverse-center construction
+  needs real dimension at least $10$ (\S\ref{subsec:dimlimit}), and a
+  machine classification of admissible torsion configurations
+  corroborating Theorem~\ref{thmB} (Appendix~\ref{app:milp}).
+\end{enumerate}
+The low-dimensional statements of \S\ref{sec:six} are straightforward
+consequences of Bai--Xu and duality. The K\"ahler examples in dimensions
+$12$ and $16$ recorded in \S\ref{subsec:higher} are rearrangements of the
+same ideas and are not claimed as separate results.
+
+\subsection{Conventions}
+Homology has integer coefficients unless indicated. For a finite abelian
+group $A$ and a prime $p$, write $d_p(A)=\dim_{\F_p}(A\otimes\F_p)$; then
+$d(A)=\max_p d_p(A)$. For a space $X$ set $t_i^p(X)=d_p(\Tor H_i(X))$ and
+$r_i(X)=\rank H_i(X)$. Homology shifted by $2k$ is written $H(\cdot)[2k]$.
+
+%======================================================================
+\section{Torsion counts and fixed-point bounds}\label{sec:prelim}
+
+\subsection{Degreewise and cyclic generator counts}
+
+\begin{definition}\label{def:lambdaN}
+For a closed manifold $W$ and $N\in\{1,2,\dots\}\cup\{\infty\}$ put
+\[
+  \lambda_N(W)=b(W)+2\sum_{c\in\Z/2N}
+  d\Bigl(\bigoplus_{i\equiv c\ (2N)}\Tor H_i(W)\Bigr),
+\]
+with $\Z/2\infty=\Z$, so that $\lambda_\infty=\lambda$.
+\end{definition}
+
+Since $d(A\oplus B)=\max_p(d_p(A)+d_p(B))\le d(A)+d(B)$, one has
+$\lambda_N\le\lambda$, with equality as soon as each residue class
+mod $2N$ contains at most one degree carrying torsion. For finite groups
+$A,B$,
+\begin{equation}\label{eq:dsum}
+  d(A)+d(B)-d(A\oplus B)>0\iff
+  \operatorname{argmax}_p d_p(A)\cap\operatorname{argmax}_p d_p(B)=\varnothing
+  \text{ and }A,B\ne0 .
+\end{equation}
+We say that $A$ and $B$ have \emph{different dominant primes} in this case.
+
+\subsection{Morse-theoretic bounds}\label{subsec:morse}
+
+\begin{proposition}[{\cite[Prop.~2.2]{OpenAI22}}]\label{prop:SMlower}
+For every connected closed smooth manifold $W$, $\SM(W)\ge\lambda(W)$;
+in particular every Morse function on $W$ has at least $\lambda(W)$
+critical points.
+\end{proposition}
+
+\begin{theorem}[Smale]\label{thm:smale}
+Let $W$ be a simply connected closed smooth manifold of dimension
+$D\ge 6$. Then $W$ admits a Morse function with exactly
+$r_i(W)+t_i(W)+t_{i-1}(W)$ critical points of index $i$; hence
+$\SM(W)=\Morse(W)=\lambda(W)$.
+\end{theorem}
+
+For $D\ge 9$ this is \cite[Thm.~2.4]{OpenAI22} with the handle proof of
+its appendix, based on \cite{Smale1963}. For all $D\ge6$ it is
+\cite[Thm.~6.1]{Smale1962}.\footnote{The torsion-inclusive statement of
+\cite[Thm.~6.1]{Smale1962} for $n\ge6$ was confirmed through secondary
+sources (Encyclopedia of Mathematics, ``Morse inequalities'';
+arXiv:2607.20259); the original wording was not consulted.}
+
+\subsection{The cyclic integral Floer bound}
+
+Let $N_M$ be the minimal Chern number of $(M,\omega)$: the positive
+generator of $c_1(TM)(\pi_2(M))\subset\Z$, or $\infty$ if this subgroup
+is zero (Bai--Xu write $N=0$ in this case).
+
+\begin{theorem}[Bai--Xu {\cite[Thm.~A]{BaiXu2022}}, see also {\cite[Cor.~1.2]{BaiXu2026}}]\label{thm:BX}
+Let $(M,\omega)$ be any closed symplectic manifold and $H$ a one-periodic
+Hamiltonian with only nondegenerate fixed points. Then
+\[
+  \#\Fix_0(\phi_H^1;H)\ \ge\ \rank H_*(M;\Q)+2\sum_{i\in\Z/2N_M}\tau_i^{(2N_M)}(M)
+  =\lambda_{N_M}(M),
+\]
+where $\tau_i^{(2N)}(M)$ is the number of nontrivial invariant factors of
+the torsion of $\bigoplus_{k\equiv i\ (2N)}H_k(M;\Z)$, that is, its
+minimal number of generators.
+\end{theorem}
+
+\begin{remark}\label{rem:rezchikov}
+Rezchikov \cite[Thm.~1]{Rezchikov2022} phrases an integral lower bound as
+the minimal rank of a cochain complex of free $\Z$-modules with cohomology
+$H^*(M;\Z)$. His proof works with the $2N$-periodized Morse complex
+\cite[\S2.1]{Rezchikov2022}, so the bound obtained is the cyclic one,
+consistent with Theorem~\ref{thm:BX}. Read with a $\Z$-grading, the
+statement would give $\#\Fix\ge\lambda(M)$, which Theorem~\ref{thmA}
+contradicts.
+\end{remark}
+
+\subsection{Perturbation of finite-order Hamiltonian symmetries}
+
+The following is \cite[Prop.~4.2]{OpenAI22} (Prop.~dyn:involution there)
+with the involution replaced by an element of finite order.
+
+\begin{proposition}\label{prop:perturb}
+Let $(P,\omega)$ be a closed symplectic manifold and $g$ a Hamiltonian
+diffeomorphism with $g^k=\id$ for some $k\ge1$. Let
+$\Fix(g)=C_1\sqcup\dots\sqcup C_r$ and let $h_j\colon C_j\to\R$ be Morse
+functions. There is a smooth $g$-invariant $f\colon P\to\R$ with
+$f|_{C_j}=h_j$ such that for all sufficiently small $\epsilon>0$ the
+Hamiltonian flow $\psi^s$ of $f$ satisfies
+\[
+  \Fix(\psi^\epsilon\circ g)=\bigsqcup_j\Crit(h_j),
+\]
+every such fixed point is nondegenerate, and $\psi^\epsilon\circ g$ is the
+time-one map of a smooth one-periodic Hamiltonian. If $P$ is simply
+connected, all fixed-point orbits are contractible.
+\end{proposition}
+
+\begin{proof}
+We indicate the changes to the proof of \cite[Prop.~4.2]{OpenAI22}.
+Average a metric over $\langle g\rangle$; the fixed set is a union of
+closed submanifolds with $T_xC_j=E_x^+=\ker(d_xg-I)$. Let $E_x^{\ne}$ be
+the sum of the (real parts of the) generalized eigenspaces of $d_xg$ for
+eigenvalues $\ne1$; $d_xg$ is semisimple of finite order, so
+$T_xP=E_x^+\oplus E_x^{\ne}$ and $E_x^{\ne}=\operatorname{im}(d_xg-I)$.
+If $u\in E_x^+$ and $v=d_xg(w)-w$, then
+$\omega(u,v)=\omega(d_xg\,u,d_xg\,w)-\omega(u,w)=0$, so the summands are
+$\omega$-orthogonal and $C_j$ is symplectic. Let
+$f=\frac1k\sum_{m=0}^{k-1}\widetilde f\circ g^m$ for an extension
+$\widetilde f$ of the $h_j$. Then $f$ is $g$-invariant, $d_xf$ vanishes on
+$\operatorname{im}(d_xg-I)=E_x^{\ne}$ for $x\in\Fix(g)$, hence $X_f$ is
+tangent to $C_j$ and equals $X_{h_j}$ there, and $g$ commutes with the flow
+$\psi^s$ of $X_f$. Put $\Phi=\psi^\epsilon\circ g$; then
+$\Phi^k=\psi^{k\epsilon}$. If $\Phi(x)=x$ and $k\epsilon$ is smaller than
+the constant of \cite[Lemma~4.1]{OpenAI22} (short-period lemma), then
+$X_f(x)=0$, so $\psi^\epsilon(x)=x$ and $g(x)=x$, and $x\in\Crit(h_j)$.
+At such $x$, with $A=d_xX_f$ preserving $E^+_x$ and $E^{\ne}_x$, the tangent
+block of $d_x\Phi-I$ is $\exp(\epsilon A^+)-I=\epsilon A^++O(\epsilon^2)$
+with $A^+$ invertible by the Morse condition, and the normal block is
+$d_xg|_{E^{\ne}}\exp(\epsilon A^{\ne})-I\to d_xg|_{E^{\ne}}-I$, which is
+invertible. The concatenation argument producing a one-periodic
+Hamiltonian is unchanged.
+\end{proof}
+
+\subsection{Integral blow-up formula}
+
+\begin{proposition}[{\cite[Thm.~4.1]{DuanLi2009}}, {\cite[Prop.~3.3]{OpenAI22}}]\label{prop:blowup}
+Let $A$ be a compact connected K\"ahler manifold and $Z\subset A$ a closed
+connected complex submanifold of complex codimension $c\ge2$. Then
+$\Bl_ZA$ is compact K\"ahler, simply connected if $A$ is, and
+\[
+  H_i(\Bl_ZA;\Z)\cong H_i(A;\Z)\oplus\bigoplus_{j=1}^{c-1}H_{i-2j}(Z;\Z).
+\]
+\end{proposition}
+
+%======================================================================
+\section{Low dimensions}\label{sec:six}
+
+The statements of this section are direct consequences of
+Theorem~\ref{thm:BX} and Poincar\'e duality; we record them to delimit
+Corollary~\ref{cor:mindim}.
+
+\emph{Real dimension $2$.} For a closed oriented surface $\Sigma_g$,
+$\SM=\Morse=\lambda=2g+2$ (Proposition~\ref{prop:SMlower} and the standard
+Morse function). If $g=0$, $N=2$ and $\lambda_2(S^2)=2$; if $g\ge1$,
+$\pi_2=0$, $N=\infty$ and $\lambda_\infty=\lambda$. Theorem~\ref{thm:BX}
+gives $\#\Fix_0\ge2g+2=\SM(\Sigma_g)$, so there is no counterexample.
+
+\emph{Simply connected real dimension $4$.} The homology is torsion-free,
+so Theorem~\ref{thm:BX} gives $\#\Fix\ge b(M)=\lambda(M)$. A simply
+connected four-dimensional counterexample would therefore require
+$\SM(M)>\lambda(M)$. Smale's theorem does not apply in dimension $4$, and
+we do not settle whether $\SM=\lambda$ for simply connected closed
+$4$-manifolds here.
+
+\begin{proposition}\label{prop:six}
+Let $(M,\omega)$ be a simply connected closed symplectic manifold of real
+dimension $6$. Every one-periodic Hamiltonian with only nondegenerate fixed
+points satisfies $\#\Fix(\phi_H^1)\ge\lambda(M)=\SM(M)$.
+\end{proposition}
+
+\begin{proof}
+Write $T_i=\Tor H_i(M)$. By universal coefficients and Poincar\'e duality,
+$T_i\cong\Tor H^{i+1}(M)\cong T_{5-i}$. Since $H_0$ is free and $H_1=0$,
+we get $T_0=T_1=T_4=T_5=0$, $T_6=0$, and $T_2\cong T_3$. The two degrees
+$2$ and $3$ have different parities, hence lie in different residue
+classes modulo $2N$ for every $N\in\{1,2,\dots,\infty\}$. Therefore
+$\lambda_N(M)=\lambda(M)$ for every $N$. Theorem~\ref{thm:BX} gives
+$\#\Fix\ge\lambda(M)$, and Theorem~\ref{thm:smale} with $D=6$ gives
+$\lambda(M)=\SM(M)$; contractibility is automatic.
+\end{proof}
+
+\begin{remark}
+Proposition~\ref{prop:six} concerns nondegenerate Hamiltonians. The
+six-dimensional example of \cite{OpenAIDegenerate}, a Hamiltonian
+diffeomorphism of the quadric $Q^3$ with three fixed points, has a
+degenerate fixed point and concerns the critical-point count; it does not
+conflict with Proposition~\ref{prop:six}.
+\end{remark}
+
+%======================================================================
+\section{An Artin--Mumford quotient threefold}\label{sec:F}
+
+\subsection{An invariant quartic symmetroid web}\label{subsec:web}
+Let $\zeta=e^{2\pi i/5}$ and let $G=\langle g\rangle\cong\Z/5$ act on
+$\PP^3$ by
+\[
+  g\cdot[x_0:x_1:x_2:x_3]=[x_0:\zeta^4x_1:\zeta^3x_2:\zeta x_3].
+\]
+Consider the web of quadrics given by the symmetric matrix of linear forms
+\[
+  A(x)=\begin{pmatrix}
+  6x_0&5x_1&4x_2&0\\
+  5x_1&8x_2&0&4x_3\\
+  4x_2&0&7x_3&6x_0\\
+  0&4x_3&6x_0&5x_1
+  \end{pmatrix},
+\]
+and let $B=\{f=0\}$, $f=\det A$:
+\[
+  f=900x_0^2x_1^2-1728x_0^3x_2-640x_1x_2^3-875x_1^3x_3+720x_0x_1x_2x_3
+  +256x_2^2x_3^2-672x_0x_3^3 .
+\]
+Every monomial of $f$ has $g$-weight $3\bmod5$, so $f(gx)=\zeta^3f(x)$.
+
+\begin{lemma}[machine-verified, Appendix~\ref{app:sage}]\label{lem:webfacts}
+\begin{enumerate}
+\item The four matrices $A_0,\dots,A_3$ (coefficients of $x_0,\dots,x_3$)
+  are linearly independent, the web has no base points, and no member has
+  rank $\le1$.
+\item $f$ is irreducible over $\Q$, the singular scheme of $B$ equals the
+  rank-$\le2$ scheme of $A$, and it is reduced of length $10$. Thus $B$ has
+  exactly ten singular points, all ordinary double points ($A_1$). Since
+  $\operatorname{Sing}(B)$ is finite and a reducible surface is singular
+  along a curve, $f$ is absolutely irreducible. The only $g$-fixed points
+  of $\PP^3$ are the coordinate points, which are smooth points of $B$
+  (item 3) and $|G|=5$ is prime, so the nodes form two free $G$-orbits.
+\item The four coordinate points $p_0,\dots,p_3$ lie on $B$ and are smooth
+  points of $B$.
+\item (Beauville's condition (ii).) If a line of $\PP^3$ is contained in
+  the singular locus of a quadric of the web, it is not contained in any
+  other quadric of the web. Equivalently, at each of the ten rank-$2$
+  points the three quadratic conditions on the web imposed by the kernel
+  line are independent; this is checked exactly over $\overline{\Q}$.
+\item The ten nodes impose independent conditions on quadrics: the
+  Hilbert function of $\C[x_0,\dots,x_3]/I_{\mathrm{nodes}}$ is
+  $1,4,10,10,\dots$, so $H^0(\PP^3,I_{\mathrm{nodes}}(2))=0$.
+\end{enumerate}
+\end{lemma}
+
+Let $\overline X\to\PP^3$ be the double cover $w^2=f$ (a hypersurface in
+$\PP(1,1,1,1,2)$) and $X:=\mathrm{AM}_5$ its blow-up at the ten nodes. The
+lift $\hat g\colon(x,w)\mapsto(gx,\zeta^4w)$ has order $5$ (note
+$\zeta^8=\zeta^3$) and lifts to $X$; we denote it again by $g$.
+
+\begin{lemma}\label{lem:fixedpts}
+$g$ acts on $X$ with exactly four fixed points, one over each $p_k$, each
+of type $\frac15(1,1,4)$. All other points have trivial stabilizer.
+\end{lemma}
+
+\begin{proof}
+The weights $0,4,3,1$ are pairwise distinct, so $\Fix(g|_{\PP^3})=
+\{p_0,\dots,p_3\}$; the nodes form free orbits, so no exceptional quadric
+contains a fixed point. Since $p_k\in B$, the fiber over $p_k$ is the single
+point $w=0$. At $p_0$ use affine coordinates $u_k=x_k/x_0$ of weights
+$4,3,1$. The linear part of $f(1,u)$ is a nonzero multiple of $u_2$
+($\partial f/\partial x_2(p_0)=-1728$); hence $(w,u_1,u_3)$ are local
+coordinates on $X$, of weights $(4,4,1)$, i.e.\ type $\frac15(1,1,4)$
+after multiplying by $4$. At $p_1,p_2,p_3$ the nonvanishing partials are
+$\partial_{x_3}f(p_1)=-875$, $\partial_{x_1}f(p_2)=-640$,
+$\partial_{x_0}f(p_3)=-672$, and the same computation gives weights
+$(1,1,4)$, $(3,2,3)$, $(2,3,2)$, all of type $\frac15(1,1,4)$. As $|G|$ is
+prime, every non-fixed point has trivial stabilizer.
+\end{proof}
+
+\subsection{Topology of the invariant double solid}
+
+\begin{proposition}\label{prop:AM5}
+$X=\mathrm{AM}_5$ is simply connected and
+\[
+  H_*(X;\Z)=(\Z,\ 0,\ \Z^{11}\oplus\Z/2,\ \Z/2,\ \Z^{11},\ 0,\ \Z)
+  \quad\text{in degrees }0,\dots,6.
+\]
+\end{proposition}
+
+\begin{proof}
+\emph{Betti numbers.} By Lemma~\ref{lem:webfacts}(5) the ten nodes impose
+independent conditions on quadrics, so the defect of the nodal quartic
+double solid $\overline X$ vanishes. Clemens' formulas for double solids
+\cite{Clemens1983} \todo{page/number of the defect formula} give, for a
+quartic double solid with $s=10$ nodes and defect $\delta=0$,
+$b_3=20-2s+2\delta=0$ for the small resolution and hence for $X$, and
+$b_2(X)=1+s+\delta=11$. This agrees with the Euler characteristic: a
+quartic with ten nodes has $\chi=24-10=14$, so
+$\chi(\overline X)=2\chi(\PP^3)-14=-6$, and replacing each node by a
+quadric adds $3$, giving $\chi(X)=24=2+2\cdot11$.
+
+\emph{Nonzero $2$-torsion.} The web is base point free and satisfies
+Beauville's condition (ii) (Lemma~\ref{lem:webfacts}(1),(4)). These are
+the hypotheses of \cite[\S6.3]{Beauville2015}, which then gives a nonzero
+$2$-torsion class in $H^3(X;\Z)$ (equivalently a nonzero element of the
+Brauer group), following \cite{ArtinMumford1972}.
+
+\emph{Exactness and simple connectivity, by deformation.} We do not know
+whether the computation of \cite{ArtinMumford1972} that the torsion is
+exactly $\Z/2$ applies verbatim to every web satisfying (i) and (ii); we
+therefore deform to a general web. Let $\Gr=\Gr(4,\Sym^2\C^4)$ (irreducible)
+and let $\mathcal D\subset\PP^3\times\Gr$ be the relative rank-$\le2$
+scheme and $\mathcal S\supset\mathcal D$ the relative singular scheme of
+the symmetroids; $\mathcal S$ is proper over $\Gr$. The partial derivatives
+of $\det A_\Lambda$ are combinations of $3\times3$ minors, so
+$\mathcal D_\Lambda\subset\mathcal S_\Lambda$. When $\mathcal D_\Lambda$ is
+finite it has the expected codimension $3$ and length equal to the degree
+$10$ of the corank-$2$ locus of symmetric $4\times4$ matrices
+\cite{HarrisTu1984} \todo{confirm that the Harris--Tu degree computes
+scheme-theoretic length in the expected-codimension case}. Hence
+$\operatorname{length}\mathcal S_\Lambda\ge10$ whenever it is finite. On
+the open locus over which $\mathcal S$ is quasi-finite, the fibre length is
+upper semicontinuous, and the \'etale locus of a finite flat family is
+open; hence
+\[
+  U_0=\{\Lambda:\mathcal S_\Lambda\text{ is reduced of length }10\}
+\]
+is Zariski open in $\Gr$. It contains the general web (the
+Artin--Mumford case) and our web (Lemma~\ref{lem:webfacts}(2)); being a
+nonempty Zariski open subset of an irreducible variety, it is connected.
+Over $U_0$ the nodes form a finite \'etale multisection, and by the
+holomorphic Morse lemma with parameters the double solids are locally
+analytically of the form $w^2=y_1^2+y_2^2+y_3^2$ times the base near the
+nodes. Blowing up the multisection therefore gives a smooth proper family,
+and by Ehresmann's theorem all members are diffeomorphic. For a general
+quartic symmetroid, Artin and Mumford prove $\Tor H^3(\widetilde X;\Z)=\Z/2$
+for the blown-up double solid $\widetilde X$, which is unirational
+\cite{ArtinMumford1972}, \cite[\S6.3]{Beauville2015}, hence simply
+connected (Serre). Therefore $X$ is simply connected with
+$\Tor H^3(X;\Z)=\Z/2$. Universal coefficients and duality give
+$\Tor H_2\cong\Tor H^3=\Z/2$ and $H_3\cong H^3=\Z/2$.
+\end{proof}
+
+\subsection{Quotient, resolution, fundamental group}
+
+Let $X^\circ\subset X$ be the complement of small $G$-invariant open balls
+around the four fixed points, $U=X^\circ/G$, and $\partial U=\bigsqcup_{k=0}^3L_k$
+with $L_k\cong S^5/(\Z/5)$ lens spaces. Each fixed point has type
+$\frac15(1,1,4)$; let $\rho_k\colon R_k\to\C^3/G$ be the toric resolution
+given by iterated star subdivision of the cone of $\frac15(1,1,4)$ at
+the lattice points $\frac15(1,1,4),\frac15(2,2,3),\frac15(3,3,2),
+\frac15(4,4,1)$ (Appendix~\ref{app:sage}). It has four exceptional
+divisors and nine maximal cones; it is a composition of weighted blow-ups,
+hence projective. Define
+\[
+  F=U\cup_{\partial U}\textstyle\bigsqcup_kR_k
+  =\text{the resolution of }X/G\text{ at its four singular points.}
+\]
+$F$ is a smooth projective threefold. Each $R_k$ is a smooth toric variety
+whose fan is simplicial with convex full-dimensional support, so its
+homology is free and concentrated in even degrees
+\cite[\S5.2]{Fulton1993} \todo{page}; it deformation retracts onto the
+union of the four compact exceptional toric surfaces, with Betti numbers
+$(1,4,4)$ (Euler characteristic $9$ = number of maximal cones).
+
+\begin{lemma}\label{lem:pi1F}
+$\pi_1(F)=1$.
+\end{lemma}
+
+\begin{proof}
+$X^\circ$ is simply connected (removing points from a simply connected
+$6$-manifold), so $\pi_1(U)=G$ since $G$ acts freely on $X^\circ$. A loop in
+$L_k$ lifting to a path from $x$ to $gx$ in the boundary sphere represents
+$g$, so $\pi_1(L_k)\to\pi_1(U)$ is onto. The $R_k$ are simply connected.
+Van Kampen gives $\pi_1(F)=1$. (Equivalently, by Armstrong's theorem
+\cite{Armstrong1968} $\pi_1(X/G)=G/\langle\text{elements with fixed
+points}\rangle=1$, and resolving isolated quotient singularities with
+simply connected exceptional sets does not change $\pi_1$.)
+\end{proof}
+
+\subsection{Integral homology of $F$}\label{subsec:Fhom}
+
+\begin{proposition}\label{prop:Fhom}
+$H_1(F)=H_5(F)=0$, $b_1=b_3=b_5=0$, $b_2(F)=b_4(F)=19$, $b(F)=40$, and
+$\Tor H_i(F)\cong\Tor H_{5-i}(F)$; in particular $\Tor H_4(F)=0$.
+\end{proposition}
+
+\begin{proof}
+By the Lefschetz formula
+$\chi(X/G)=\frac15\bigl(\chi(X)+4\cdot\#\Fix(g)\bigr)=\frac15(24+16)=8$.
+Each resolution replaces a point by a set of Euler characteristic $9$,
+so $\chi(F)=8+4\cdot8=40$. Rationally
+$H_*(U;\Q)=H_*(X^\circ;\Q)^G$ and $H_{\mathrm{odd}}(X;\Q)=0$; with the
+even homology of the $R_k$, Mayer--Vietoris gives $b_{\mathrm{odd}}(F)=0$,
+hence $b_2=b_4=19$ (the invariant part of $H_2(X;\Q)$ has rank $3$ by the
+permutation-module description in Lemma~\ref{lem:torF}, and
+$3+4\cdot4=19$). $H_1(F)=0$ by Lemma~\ref{lem:pi1F}. $F$ is a closed
+oriented $6$-manifold, so $\Tor H_i\cong\Tor H^{i+1}\cong\Tor H_{5-i}$.
+\end{proof}
+
+\begin{lemma}\label{lem:torF}
+$\Tor H_2(F)\cong\Tor H_3(F)\cong\Z/2$. In particular $F$ has no
+$5$-torsion.
+\end{lemma}
+
+\begin{proof}
+By Proposition~\ref{prop:Fhom} it suffices to compute $\Tor H_2(F)$ and
+$\Tor H_3(F)$ one prime at a time. Mayer--Vietoris for $F=U\cup R$,
+$R=\bigsqcup R_k$, reads
+\begin{equation}\label{eq:MV}
+  H_i(\partial U)\to H_i(U)\oplus H_i(R)\to H_i(F)\to H_{i-1}(\partial U),
+\end{equation}
+with $H_*(L_k)=(\Z,\Z/5,0,\Z/5,0,\Z)$ and $H_*(R)$ free, in even degrees.
+
+\emph{Step 1 (input).} $\Tor H_2(X)=\Z/2$ and $H_3(X)=\Z/2$ exactly
+(Proposition~\ref{prop:AM5}), and $H_i(X^\circ)=H_i(X)$ for $i\le4$.
+
+\emph{Step 2 (localization at $\ell\ne5$).} $H_i(\partial U)_{(\ell)}=0$
+for $i=1,2,3$, so \eqref{eq:MV} gives
+$H_i(F)_{(\ell)}\cong H_i(U)_{(\ell)}\oplus H_i(R)_{(\ell)}$ for $i=2,3$,
+and $\Tor H_i(F)_{(\ell)}=\Tor H_i(U)_{(\ell)}$.
+
+\emph{Step 3 (transfer).} As $|G|$ is invertible in $\Z_{(\ell)}$, the
+Cartan--Leray spectral sequence collapses to
+$H_i(U;\Z_{(\ell)})\cong H_i(X^\circ;\Z_{(\ell)})_G\cong
+H_i(X^\circ;\Z_{(\ell)})^G$ (averaging).
+
+\emph{Step 4 (torsion of invariants).} For a $\Z_{(\ell)}[G]$-module $H$
+with $|G|$ invertible, $H^1(G;\Tor H)=0$, so $\Tor(H^G)=(\Tor H)^G$. For
+$\ell=2$, $G$ acts trivially on $\Z/2$, so $\Tor H_2(F)_{(2)}\cong
+\Tor H_3(F)_{(2)}\cong\Z/2$. For $\ell\notin\{2,5\}$ there is no
+$\ell$-torsion.
+
+\emph{Step 5 (the prime $5$).} Let $h\in H^2(X)$ be the pullback of the
+hyperplane class and $E_1,\dots,E_{10}$ the classes of the exceptional
+quadrics; $g$ fixes $h$ and permutes the $E_i$ in two free orbits. Pair
+them with the curve classes $\tilde\ell$ (preimage of a general line,
+$h\cdot\tilde\ell=2$, $E_i\cdot\tilde\ell=0$) and $f_i$ (a ruling of the
+$i$-th quadric, $h\cdot f_i=0$, $E_j\cdot f_i=-\delta_{ij}$, since
+$E_i|_{E_i}=\mathcal O(-1,-1)$). The intersection matrix is
+$\operatorname{diag}(2,-1,\dots,-1)$, of determinant $\pm2$. Hence
+$h,E_1,\dots,E_{10}$ span a sublattice of index dividing $2$ in
+$H^2(X)/\Tor$, and
+\[
+  H^2(X;\Z_{(5)})\cong H_2(X;\Z_{(5)})\cong\Z_{(5)}\oplus\Z_{(5)}[G]^2
+\]
+as $\Z_{(5)}[G]$-modules (permutation modules are self-dual). In the
+Cartan--Leray spectral sequence $E^2_{p,q}=H_p(G;H_q(X^\circ;\Z_{(5)}))
+\Rightarrow H_{p+q}(U;\Z_{(5)})$ \cite[VII.7]{Brown1982} we have
+$H_1(X^\circ)=0$, $H_3(X^\circ;\Z_{(5)})=0$, and
+$E^2_{0,2}=(\Z\oplus\Z[G]^2)_G\otimes\Z_{(5)}\cong\Z_{(5)}^3$. Since
+$H_2(G;\Z)=0$, the only possible differential into $E_{0,2}$ comes from
+the finite group $E^3_{3,0}=H_3(G;\Z)=\Z/5$; it is zero because
+$E^2_{0,2}\cong\Z_{(5)}^3$ is torsion free. Hence
+$H_2(U;\Z_{(5)})\cong\Z_{(5)}^3$. Since moreover $b_3(U)=0$, universal
+coefficients give $H^3(U;\Z)\otimes\Z_{(5)}=0$, and Lefschetz duality
+($U$ is a compact oriented $6$-manifold with boundary) gives
+$H_3(U,\partial U)_{(5)}\cong H^3(U)_{(5)}=0$. Hence
+$H_3(\partial U)\to H_3(U)$ is onto after localizing at $5$. As
+$H_3(R)=0$ and $H_2(\partial U)=0$, \eqref{eq:MV} gives
+$H_3(F)_{(5)}=\operatorname{coker}(H_3(\partial U)\to H_3(U))_{(5)}=0$.
+
+\emph{Step 6 (duality at $5$).} From \eqref{eq:MV} alone, $H_2(F)_{(5)}$
+is an extension of $\ker\bigl(H_1(\partial U)\to H_1(U)\bigr)\cong(\Z/5)^3$
+by the free module $H_2(U)_{(5)}\oplus H_2(R)_{(5)}$, so Mayer--Vietoris
+does not by itself exclude a $\Z/5$ in $H_2(F)$. Torsion-freeness comes
+from duality: $\Tor H_2(F)_{(5)}\cong\Tor H_3(F)_{(5)}=0$ by Step~5.
+\end{proof}
+
+\begin{remark}\label{rem:5torsion}
+The exactness of Lemma~\ref{lem:torF} is essential. If
+$\Tor H_2(F)=(\Z/2)^2$, or if $F$ had $5$-torsion in degrees $2,3$, the
+gap of Theorem~\ref{thmA} (and of Remark~\ref{rem:dim12}) would collapse
+to $\le0$ (\texttt{computations/homology/w10.py},
+\texttt{computations/homology/lam.py}). Note that $H_3(U;\Z_{(5)})$ itself
+has order $25$ (contributions $E^\infty_{1,2}$ and $E^\infty_{3,0}$); it is
+killed in $F$ by the lens space boundary.
+\end{remark}
+
+\subsection{A Godeaux-type divisor}\label{subsec:S}
+
+The $G$-invariant quintic monomials (weight sum $\equiv0\bmod5$) span a
+$12$-dimensional space. Fix the invariant quintic
+\[
+\begin{aligned}
+  Q={}&6x_0^5+9x_1^5+17x_0x_1^3x_2+15x_0^2x_1x_2^2+13x_2^5+14x_0^3x_1x_3
+  +10x_1^2x_2^2x_3\\
+  &+10x_0x_2^3x_3+x_0x_1^2x_3^2+19x_0^2x_2x_3^2+15x_1x_2x_3^3+5x_3^5 .
+\end{aligned}
+\]
+
+\begin{lemma}[machine-verified, Appendix~\ref{app:sage}]\label{lem:quintic}
+The surface $\{Q=0\}$ is smooth, avoids $p_0,\dots,p_3$ and the ten nodes
+of $B$, and meets $B$ transversally in a smooth curve $\Delta$.
+\end{lemma}
+
+Let $\widetilde S\subset X$ be the preimage of $\{Q=0\}$; it is the double
+cover of the quintic surface branched along $\Delta\in|4H|$, and lies in the
+locus where $X\to\overline X$ is an isomorphism and $G$ acts freely. Put
+$S=\widetilde S/G\subset F$.
+
+\begin{proposition}\label{prop:S}
+$S$ is a smooth divisor in $F$ with $\pi_1(S)=\Z/5$; its homology is
+\[
+  H_*(S;\Z)=(\Z,\ \Z/5,\ \Z^{40}\oplus\Z/5,\ 0,\ \Z).
+\]
+\end{proposition}
+
+\begin{proof}
+Smoothness and the divisor property follow from Lemma~\ref{lem:quintic}
+and the fact that $\widetilde S$ avoids the fixed points. Simple
+connectivity of $\widetilde S$: by Nori's theorem \cite{Nori1983}, since
+$\Delta$ is a smooth curve with $\Delta^2>0$ on the simply connected
+quintic surface, $\pi_1$ of the complement of $\Delta$ is abelian, hence
+cyclic generated by a meridian $\gamma$; the double cover corresponds to
+$\langle\gamma^2\rangle$, which is generated by a meridian of
+$\widetilde\Delta$ and dies in $\widetilde S$. Here
+$H_1(\Sigma\setminus\Delta)=\Z/4$, because the hyperplane class $H$ of the
+quintic surface $\Sigma$ is primitive ($H^2=5$ is squarefree), so
+$\Delta\in|4H|$ has divisibility exactly $4$. \todo{theorem number in
+\cite{Nori1983}.}
+Hence $\pi_1(S)=G=\Z/5$, $H_1(S)=\Z/5$, $\Tor H_2(S)\cong\Tor H_1(S)=\Z/5$
+and $H_3(S)=0$. For Betti numbers, $\chi$ of a smooth quintic surface is
+$55$ and $\Delta$ has $2g-2=\Delta\cdot(\Delta+K)=4H\cdot5H=100$, so
+$\chi(\widetilde S)=2\cdot55+100=210$, $\chi(S)=42$ and $b_2(S)=40$.
+\end{proof}
+
+We call $S$ \emph{Godeaux-type} because $\pi_1(S)=\Z/5$; it is not a
+Godeaux surface (its geometric genus is positive).
+
+\begin{remark}
+This gives, in the K\"ahler category, a simply connected compact K\"ahler threefold with $2$-primary
+Brauer-type torsion containing a smooth divisor with $5$-torsion in $H_1$.
+The Brauer group is a birational invariant, which is why one cannot start
+from a rational threefold such as the toric resolution of $\PP^3/\Z_5$.
+\end{remark}
+
+%======================================================================
+\section{The ten-dimensional construction}\label{sec:ten}
+
+\subsection{The surface $Y$ and two invariant lines}
+
+Let $Y$ be $\CP^1\times\CP^1$ blown up at the four points
+$\{0,\infty\}^2$, with the diagonal circle action
+$t\cdot(z,w)=(e^{2\pi it}z,e^{2\pi it}w)$ lifted to $Y$ and an invariant
+K\"ahler form. By \cite[Prop.~4.3]{OpenAI22}, the half-turn $g_Y$ is a
+Hamiltonian involution with $\Fix(g_Y)=E_{00}\sqcup E_{0\infty}\sqcup
+E_{\infty0}\sqcup E_{\infty\infty}$ (the exceptional curves), $dg_Y=+1$ on
+$TE$ and $-1$ on the normal line; $Y$ is simply connected with
+$H_*(Y)=(\Z,0,\Z^6,0,\Z)$; and $c_1(TY)[E]=1$.
+
+Let $L_0,L_2\subset Y$ be the proper transforms of $\{0\}\times\CP^1$ and
+$\{\infty\}\times\CP^1$. They are disjoint invariant smooth rational
+curves; $g_Y$ rotates each by $\pi$, with fixed points (``poles'')
+$L_0\cap E_{00}$, $L_0\cap E_{0\infty}$, $L_2\cap E_{\infty0}$,
+$L_2\cap E_{\infty\infty}$. Thus every fixed curve contains exactly one
+pole, and at a pole $y$ the curves $L$ and $E$ meet transversally, so
+$T_yY=T_yE\oplus T_yL$ with $dg_Y=\operatorname{diag}(1,-1)$.
+
+\subsection{Transverse center lemma}
+
+\begin{lemma}[transverse center lemma]\label{lem:transverse}
+Let $A$ be a complex manifold, $g$ a holomorphic automorphism of finite
+order, $\Fix(g)=\bigsqcup_jC_j$, and $W\subset A$ a $g$-invariant closed
+complex submanifold of codimension $\ge2$. Assume that for every
+$p\in W\cap\Fix(g)$
+\begin{equation}\label{eq:transverse}
+  E_p^{\ne}:=\operatorname{im}(d_pg-I)\subset T_pW .
+\end{equation}
+Let $\hat g$ be the lift of $g$ to $\widehat A=\Bl_WA$. Then
+\[
+  \Fix(\hat g)=\bigsqcup_j\widehat C_j,\qquad
+  \widehat C_j\cong\Bl_{W\cap C_j}C_j ,
+\]
+where $\widehat C_j$ is the proper transform of $C_j$ (equal to $C_j$ if
+$W\cap C_j=\varnothing$, and to $C_j$ blown up along a smooth center
+otherwise). In particular $\hat g$ has no fixed components other than the
+proper transforms of those of $g$.
+\end{lemma}
+
+\begin{proof}
+Write $\pi\colon\widehat A\to A$ and $E=\pi^{-1}(W)=\PP(N_W)$.
+
+\emph{(a) Cleanness.} $W\cap\Fix(g)=\Fix(g|_W)$ is a closed submanifold
+of $W$ with $T_p(W\cap C_j)=\ker(d_pg-I)\cap T_pW=T_pC_j\cap T_pW$; so $W$
+and each $C_j$ intersect cleanly. By \eqref{eq:transverse},
+$T_pA=T_pC_j\oplus E_p^{\ne}\subset T_pC_j+T_pW$, so
+$T_pA=T_pC_j+T_pW$.
+
+\emph{(b) Fixed points off $E$, and over non-fixed points of $W$.} $\pi$ is a
+$g$-equivariant isomorphism off $E$, so $\Fix(\hat g)\setminus E=
+\Fix(g)\setminus W$. If $p\in W$ and $g(p)\ne p$, then $\hat g$ maps the
+fiber $E_p$ to $E_{g(p)}\ne E_p$, so it has no fixed points there.
+
+\emph{(c) Fibers over $W\cap\Fix(g)$.} For $p\in W\cap C_j$, $\hat g$ acts on
+$E_p=\PP(T_pA/T_pW)$ through the map induced by $d_pg$. By
+\eqref{eq:transverse}, $T_pA/T_pW$ is the image of $E_p^+=T_pC_j$, on
+which $d_pg=\id$. Hence $\hat g$ fixes $E_p$ pointwise.
+
+\emph{(d) Identification.} By (a) the natural map
+$T_pC_j/T_p(W\cap C_j)\to T_pA/T_pW$ is injective (cleanness) and surjective
+($T_pA=T_pC_j+T_pW$), so $\PP(N_{W\cap C_j/C_j})|_p\to E_p$ is an
+isomorphism. By cleanness the scheme-theoretic intersection $W\cap C_j$ is
+the smooth submanifold above, so the strict transform $\widehat C_j$
+(the closure of $C_j\setminus W$) is isomorphic to $\Bl_{W\cap C_j}C_j$
+\cite[II.7.15]{Hartshorne1977}; it is a closed connected submanifold whose
+intersection with $E$ is its exceptional divisor
+$\PP(N_{W\cap C_j/C_j})$, which by the isomorphism just noted is all of
+$E|_{W\cap C_j}$. It is contained in the closed set $\Fix(\hat g)$.
+Combining (b) and (c), as sets
+\[
+  \Fix(\hat g)=\bigl(\Fix(g)\setminus W\bigr)\cup E|_{W\cap\Fix(g)}
+  =\bigsqcup_j\bigl((C_j\setminus W)\cup E|_{W\cap C_j}\bigr)
+  =\bigsqcup_j\widehat C_j .
+\]
+The $\widehat C_j$ are disjoint because the $C_j$ are, and $\Fix(\hat g)$,
+a closed complex submanifold, is their disjoint union.
+\end{proof}
+
+\begin{remark}
+Without \eqref{eq:transverse} the lemma fails: blowing up $S\times\{y\}$
+with $y$ a pole, or $S\times E$, produces additional fixed components
+(copies of $S$ or $S\times\CP^1$ inside $E$) that carry torsion and destroy
+the gap; this is a direct computation with the bookkeeping of
+\texttt{computations/homology/lam.py}. See also
+\S\ref{subsec:dimlimit}.
+\end{remark}
+
+\subsection{The manifold $M$ and its fixed locus}
+
+Let $F$ and $S\subset F$ be as in \S\ref{sec:F} and put
+\[
+  W=S\times(L_0\sqcup L_2)\subset F\times Y,\qquad
+  M=\Bl_W(F\times Y).
+\]
+$W$ has complex dimension $3$, hence codimension $2$ in the fivefold
+$F\times Y$.
+
+\begin{proposition}\label{prop:Mprops}
+$M$ is a simply connected compact K\"ahler manifold of complex dimension
+$5$ with a Hamiltonian circle action lifting $\id_F\times(\text{diagonal
+action})$. Its half-turn $\hat g$ is a Hamiltonian involution with
+\[
+  \Fix(\hat g)=C_1'\sqcup C_2'\sqcup C_3'\sqcup C_4',\qquad
+  C_j'\cong\Bl_{S\times\{\mathrm{pt}\}}(F\times\CP^1),
+\]
+each $C_j'$ simply connected of real dimension $8$. The minimal Chern number
+of $M$ is $1$.
+\end{proposition}
+
+\begin{proof}
+K\"ahlerness and simple connectivity follow from
+Proposition~\ref{prop:blowup}. $W$ is invariant, so the holomorphic circle
+action lifts; averaging a K\"ahler form and using $H^1(M;\R)=0$ makes it
+Hamiltonian, and its half-turn $\hat g$ is a Hamiltonian involution lifting
+$g=\id_F\times g_Y$. We have $\Fix(g)=\bigsqcup_jF\times E_j$ and
+$W\cap\Fix(g)=S\times\{\text{poles}\}$. At $p=(s,y)$ with $y$ a pole,
+$E^{\ne}_p=\{0\}\oplus T_yL\subset T_sS\oplus T_yL=T_pW$, so
+\eqref{eq:transverse} holds. Lemma~\ref{lem:transverse} gives
+$\Fix(\hat g)=\bigsqcup\widehat{F\times E_j}$ with
+$\widehat{F\times E_j}\cong\Bl_{S\times\{y_j\}}(F\times E_j)$, $y_j$ the
+unique pole on $E_j$. These are simply connected by
+Proposition~\ref{prop:blowup}. Finally, for $x\in F\setminus S$ the sphere
+$\{x\}\times E_{00}$ is disjoint from $W$ and has $c_1=1$.
+\end{proof}
+
+\subsection{Integral homology and torsion profiles}
+
+By Proposition~\ref{prop:blowup} (codimension $2$ in both cases),
+\begin{equation}\label{eq:HMC}
+  H_*(M)\cong H_*(F\times Y)\oplus2\,H_*(S\times\CP^1)[2],\qquad
+  H_*(C_j')\cong H_*(F\times\CP^1)\oplus H_*(S)[2].
+\end{equation}
+All Künneth factors other than $F,S$ have free homology, so no Tor terms
+arise. Write $a=b_2(F)$ and $\beta=b_2(S)$.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}c|cccccc|cccc@{}}
+\toprule
+ & \multicolumn{6}{c|}{$M$} & \multicolumn{4}{c}{$C_j'$}\\
+degree & 2 & 3 & 4 & 5 & 6 & 7 & 2 & 3 & 4 & 5\\
+\midrule
+$d_2$ & 1 & 1 & 6 & 6 & 1 & 1 & 1 & 1 & 1 & 1\\
+$d_5$ & 0 & 2 & 2 & 2 & 2 & 0 & 0 & 1 & 1 & 0\\
+$t_i=\max$ & 1 & 2 & 6 & 6 & 2 & 1 & 1 & 1 & 1 & 1\\
+\bottomrule
+\end{tabular}
+\caption{Primary torsion multiplicities $d_p(\Tor H_i)$. All torsion is
+elementary abelian. $\sum_it_i(M)=18$, $\sum_it_i(C_j')=4$.}
+\label{tab:torsion}
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+degree & 0 & 2 & 4 & 6 & 8 & 10 & total\\
+\midrule
+$r_i(M)$ & 1 & $a+8$ & $7a+2\beta+3$ & $7a+2\beta+3$ & $a+8$ & 1 & $16a+4\beta+24$\\
+$r_i(C_j')$ & 1 & $a+2$ & $2a+\beta$ & $a+2$ & 1 & & $4a+\beta+6$\\
+\bottomrule
+\end{tabular}
+\caption{Free ranks (all odd ranks vanish). $b(M)=4b(C_j')$.}
+\label{tab:free}
+\end{table}
+
+\begin{proof}[Derivation of the tables]
+$F$ has $\Tor H_2=\Tor H_3=\Z/2$; Künneth with $Y$ (free ranks $1,6,1$ in
+degrees $0,2,4$) places $2$-torsion of multiplicities $(1,6,1)$ in degrees
+$(2,4,6)$ and $(3,5,7)$. $S\times\CP^1$ has $5$-torsion $\Z/5$ in degrees
+$1,2,3,4$; shifted by $2$ and doubled, this gives $(2,2,2,2)$ in degrees
+$3,\dots,6$. For $C_j'$: $F\times\CP^1$ has $2$-torsion in degrees $2,3,4,5$,
+and $H(S)[2]$ adds $\Z/5$ in degrees $3,4$. The free ranks follow in the
+same way from $r(F)=(1,a,a,1)$, $r(S)=(1,\beta,1)$.
+\end{proof}
+
+\begin{corollary}\label{cor:counts}
+\[
+  \lambda(M)=b(M)+36,\qquad \lambda(C_j')=\tfrac14b(M)+8,\qquad
+  \lambda(M)-\sum_{j=1}^4\lambda(C_j')=4,
+\]
+independently of $a$ and $\beta$. Moreover $\lambda_1(M)=b(M)+32=
+\sum_j\lambda(C_j')$.
+\end{corollary}
+
+\begin{proof}
+The first three identities follow from the tables. For $\lambda_1$, the
+even-degree torsion of $M$ has $2$-multiplicity $1+6+1=8$ and
+$5$-multiplicity $2+2=4$, so $d=8$; likewise in odd degrees. Thus
+$\lambda_1(M)=b(M)+2(8+8)$.
+\end{proof}
+
+The source of the gap is visible in Table~\ref{tab:torsion}: in $M$ the
+dominant prime is $5$ in degrees $3,6$ and $2$ in degrees $4,5$, so both
+primes contribute; in $C_j'$ the $2$- and $5$-torsion occupy the same
+degrees $3,4$ with equal multiplicity and are absorbed by the maximum.
+The script \texttt{computations/homology/m10\_indep.py} reproduces these
+numbers. It hard-codes placeholder free ranks $b(F)=8$, $b(S)=11$ and
+prints $\lambda(M)=144$, $\sum\lambda(C_j')=140$, cyclic bound $140$; by
+Corollary~\ref{cor:counts} the gap $4$ is independent of these
+placeholders (also tested for $b(F)\in\{8,22\}$, $b_2(S)\in\{9,30\}$).
+The actual values are given in Remark~\ref{rem:absolute}.
+
+\begin{remark}\label{rem:absolute}
+With $a=19$ (Proposition~\ref{prop:Fhom}) and $\beta=40$
+(Proposition~\ref{prop:S}): $b(M)=488$, $\lambda(M)=524$,
+$\lambda(C_j')=130$, $\#\Fix=520$, and the relative deficit is
+$4/524=1/131$. The value $b(F)=40$ was obtained twice, from two
+independent constructions of the toric fan (seven rays, nine smooth
+maximal cones; \texttt{computations/sage/bF2.sage}); it depends on the
+choice of resolution, the gap does not. Over $\F_2$ one has
+$b(M;\F_2)=b(M)+2\cdot16=\#\Fix$, so the count also equals the total
+mod-$2$ Betti number; over $\F_5$, $b(M;\F_5)=b(M)+16<\#\Fix$.
+\end{remark}
+
+\subsection{Proof of Theorem~\ref{thmA}}
+
+By Theorem~\ref{thm:smale} with $D=8$, each $C_j'$ carries a Morse
+function $h_j$ with exactly $\lambda(C_j')$ critical points.
+Proposition~\ref{prop:perturb} applied to the
+Hamiltonian involution $\hat g$ of Proposition~\ref{prop:Mprops} yields a
+one-periodic Hamiltonian $H$ on $M$ with
+$\#\Fix(\phi_H^1)=\sum_j\lambda(C_j')$, all nondegenerate, all with
+contractible orbits since $M$ is simply connected. By
+Corollary~\ref{cor:counts} this equals $\lambda(M)-4$, and
+$\lambda(M)=\SM(M)=\Morse(M)$ by Theorem~\ref{thm:smale} with $D=10\ge9$
+(\cite[Thm.~2.4]{OpenAI22}). The minimal Chern number is $1$
+(Proposition~\ref{prop:Mprops}) and $\#\Fix=\lambda_1(M)$ by
+Corollary~\ref{cor:counts}. \qed
+
+\begin{remark}
+Theorem~\ref{thmA} is consistent with Theorem~\ref{thm:BX}, which here is
+an equality. It shows that the cyclic integral Floer bound is sharp in
+complex dimension $5$ (previously complex dimension $1666$
+\cite{OpenAICompanion}).
+\end{remark}
+
+%======================================================================
+\section{Dimension eight: necessary conditions and a mechanism obstruction}\label{sec:eight}
+
+\subsection{Necessary torsion conditions}
+
+\begin{proposition}\label{prop:nec8}
+Let $M$ be a simply connected closed symplectic $8$-manifold with minimal
+Chern number $N$, and put $T_i=\Tor H_i(M)$. Then $T_i\cong T_{7-i}$,
+$T_i=0$ for $i\notin\{2,3,4,5\}$, $\lambda_N(M)=\lambda(M)$ for $N\ge2$
+(including $N=\infty$), and
+\[
+  \lambda(M)-\lambda_1(M)=4\bigl[d(T_2)+d(T_3)-d(T_2\oplus T_3)\bigr].
+\]
+Consequently, assuming Theorem~\ref{thm:BX} and Theorem~\ref{thm:smale}
+for $D=8$, a nondegenerate Hamiltonian on $M$ with fewer than $\SM(M)$
+fixed points can exist only if $N=1$ and $T_2,T_3$ are nonzero with
+different dominant primes in the sense of \eqref{eq:dsum}. In particular
+$\Tor H^3(M)\cong T_2\ne0$.
+\end{proposition}
+
+\begin{proof}
+$T_i\cong\Tor H^{i+1}\cong T_{7-i}$ by universal coefficients and duality;
+$T_0=T_1=0$ forces $T_6=T_7=0$. If $2N\ge4$ the degrees $2,3,4,5$ lie in
+distinct classes mod $2N$. For $N=1$ the even class carries
+$T_2\oplus T_4\cong T_2\oplus T_3$ and the odd class
+$T_3\oplus T_5\cong T_3\oplus T_2$; compare with $\lambda$, which counts
+$d(T_2)+d(T_3)$ twice in each parity. The rest follows from
+Theorems~\ref{thm:BX} and~\ref{thm:smale} and \eqref{eq:dsum}.
+\end{proof}
+
+\begin{remark}
+Blowing up a space with free homology along any centers never creates
+torsion in degree $2$ (the shifts in Proposition~\ref{prop:blowup} are
+$\ge2$ and $H_0$ of a center is free). Heuristically, therefore, a
+blow-up construction in dimension $8$ needs an ambient with Brauer-type
+torsion from the start; this remark applies only to constructions by
+blow-ups.
+\end{remark}
+
+\begin{proposition}[failure of the product mechanism below dimension $12$]\label{prop:productfail}
+Let $X$ be a simply connected closed K\"ahler manifold of real dimension
+$\le6$ and $Y$ as in \S\ref{sec:ten}. Then
+$\lambda(X\times Y)=4\lambda(X\times\CP^1)$.
+\end{proposition}
+
+\begin{proof}
+If $\dim_\R X\le4$, $X$ has no torsion. If $\dim_\R X=6$, the proof of
+Proposition~\ref{prop:six} shows that the only torsion is $T:=T_2\cong T_3$. Then
+$X\times\CP^1$ has torsion $T$ in degrees $2,3,4,5$ and $X\times Y$ has
+$T,T,T^6,T^6,T,T$ in degrees $2,\dots,7$, so
+$\sum t_i(X\times Y)=16d(T)=4\sum t_i(X\times\CP^1)$; free ranks scale by
+$4$ as well.
+\end{proof}
+
+\subsection{Perfectness of moment maps over prime fields}
+
+\begin{lemma}\label{lem:perfect}
+Let $C$ be a closed symplectic manifold with a Hamiltonian circle action,
+moment map $\mu$, and fixed components $F$ of Morse--Bott index $2\mu_F$.
+For every field $k$ and every $i$,
+\[
+  \dim H_i(C;k)=\sum_F\dim H_{i-2\mu_F}(F;k).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $q$ be a prime. ``$\le$'': the Morse--Bott inequalities for $\mu$ hold
+with $\F_q$ coefficients, since negative normal bundles are complex,
+hence oriented, so the Thom isomorphism applies. ``$\ge$'' for total
+dimensions: let $X_n=C^{\Z/q^n}$, where $\Z/q^n\subset S^1$. The group
+$\Z/q^{n+1}$ preserves $X_n$ and acts on it through
+$\Z/q^{n+1}/\Z/q^n\cong\Z/q$ with fixed set $X_{n+1}$. Smith theory
+for $\Z/q$ \cite[Ch.~III]{Bredon1972} gives $\dim H_*(X_{n+1};\F_q)\le
+\dim H_*(X_n;\F_q)$. A smooth action of $S^1$ on a compact manifold has
+finitely many isotropy groups; since $\bigcup_n\Z/q^n$ is dense in $S^1$,
+$X_n=C^{S^1}$ for $n$ large. Hence
+$\sum_F\dim H_*(F;\F_q)\le\dim H_*(C;\F_q)$. Equality of total dimensions
+forces the Morse--Bott spectral sequence (with $E^1$ the shifted homology of
+the $F$'s) to degenerate, giving degreewise equality. For $k$ of
+characteristic $0$, apply the result for a prime $q$ that divides no
+torsion order of $C$ or of any $F$ (or use \cite{Frankel1959,Kirwan1984}).
+The case of a general field reduces to its prime field.
+\end{proof}
+
+This is the classical Borel--Smith inequality for torus actions over
+$\F_p$ \cite[Ch.~3]{AlldayPuppe1993}, \cite[Ch.~III]{Hsiang1975},
+specialized to moment maps; we do not claim novelty for
+Lemma~\ref{lem:perfect}. \todo{precise theorem numbers in Allday--Puppe
+and Hsiang; literature search for prior explicit statements of
+$\F_p$-perfectness of moment maps.}
+
+\begin{corollary}\label{cor:torsionformula}
+In the situation of Lemma~\ref{lem:perfect}, for every prime $p$ and every
+$i$,
+\[
+  r_i(C)=\sum_Fr_{i-2\mu_F}(F),\qquad
+  t^p_i(C)=\sum_Ft^p_{i-2\mu_F}(F).
+\]
+\end{corollary}
+
+\begin{proof}
+$\dim H_i(\,\cdot\,;\F_p)=r_i+t^p_i+t^p_{i-1}$. Subtract the rational
+identity and induct on $i$ starting from $t^p_{-1}=0$.
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{thmB}}
+
+Choose a circle $S^1\subset T$ with $M^{S^1}=M^T$: $T$ has finitely many
+isotropy subgroups on $M$, and a circle whose Lie algebra avoids the
+finitely many proper subspaces $\operatorname{Lie}(H)$, $H\ne T$ an
+isotropy group, works. Let $\mu$ be its moment map. Each component $C$ of
+$\Fix(g)$ is a $T$-invariant symplectic submanifold, $\mu|_C$ is a moment map
+for the circle on $C$, and $C^{S^1}=C\cap M^T$. Write $\mathcal F$ for the
+set of components of $M^T$ and $\mathcal F(C)\subset\mathcal F$ for those in
+$C$; $\mathcal F=\bigsqcup_C\mathcal F(C)$. For $F\in\mathcal F(C)$ write
+$2\nu_F$ and $2\mu_F$ for its indices in $C$ and in $M$.
+
+\emph{Step 1: an upper bound for $\lambda(M)$.} By
+Corollary~\ref{cor:torsionformula} applied to $M$,
+$b(M)=\sum_{F}b(F)$ and
+\[
+  t_i(M)=\max_p\sum_Ft^p_{i-2\mu_F}(F)\le\sum_F\max_pt^p_{i-2\mu_F}(F)
+  =\sum_Ft_{i-2\mu_F}(F).
+\]
+Summing over $i$: $\lambda(M)\le\sum_{F\in\mathcal F}\lambda(F)$.
+
+\emph{Step 2: equality for each $C$.} We claim
+$\lambda(C)=\sum_{F\in\mathcal F(C)}\lambda(F)$ for every component $C$ of
+$\Fix(g)$; by hypothesis $\dim_\R C\le6$. (If $\dim_\R M=8$, this holds
+unless $g$ acts trivially on $M$, in which case $C=M$ and the theorem is
+trivial.) Nothing below uses $\dim M$ or $\pi_1(C)$. A component $F$
+with nonzero torsion has $\dim_\R F\ge4$ (closed orientable manifolds of
+dimension $\le2$ have free homology). If $F=C$ there is nothing to prove.
+Otherwise $\dim_\R C=6$ and $\dim_\R F=4$, and the normal bundle of $F$ in
+$C$ is a complex line, so $\nu_F\in\{0,1\}$ and $F$ is a local minimum or
+local maximum of $\mu|_C$. By the connectedness theorem of Atiyah and
+Guillemin--Sternberg \cite{Atiyah1982,GuilleminSternberg1982}, local
+extrema are global and the minimum and maximum components are unique.
+Hence $C$ contains at most two torsion-carrying fixed components: the
+minimum $F_-$ ($\nu=0$, torsion in degrees $1,2$) and the maximum $F_+$
+($\nu=1$, torsion in degrees $3,4$). These degree supports are disjoint,
+so by Corollary~\ref{cor:torsionformula} each $t_i(C)$ equals $t_i(F_-)$ or
+$t_{i-2}(F_+)$ or $0$, whence $\sum_it_i(C)=\sum_{F\in\mathcal F(C)}\sum_i
+t_i(F)$. Together with $b(C)=\sum_{F\in\mathcal F(C)}b(F)$ this proves the
+claim.
+
+\emph{Step 3.} $\sum_j\lambda(C_j)=\sum_j\sum_{F\in\mathcal F(C_j)}\lambda(F)
+=\sum_{F\in\mathcal F}\lambda(F)\ge\lambda(M)$.
+
+\emph{Consequence.} The fixed points of $\psi^\epsilon\circ g$ are the
+critical points of Morse functions $h_j$ on $C_j$, and
+$\#\Crit(h_j)\ge\lambda(C_j)$ by Proposition~\ref{prop:SMlower}. Hence
+$\#\Fix\ge\lambda(M)$, which equals $\SM(M)$ for simply connected $M$ by
+Theorem~\ref{thm:smale} ($D=8$). \qed
+
+\begin{remark}[a support criterion]\label{rem:support}
+The proof shows, in any dimension, that $\sum_j\lambda(C_j)\ge\lambda(M)$
+whenever, in every $C_j$, the index-shifted torsion supports of the
+torsion-carrying fixed components are pairwise disjoint. A construction of
+this type in dimension $2n$ therefore needs a component $C_j$ with two
+torsion-carrying $T$-fixed components whose shifted supports overlap.
+In Theorem~\ref{thmA} this happens as follows. The diagonal circle
+has weights $(1,1)$ at $(0,0)$ and $(-1,-1)$ at $(\infty,\infty)$, so it
+acts \emph{trivially} on $E_{00}$ and $E_{\infty\infty}$; hence $C_1'$ and
+$C_4'$ (over these curves) are themselves $T$-fixed components. On $C_2'$
+and $C_3'$ (over $E_{0\infty}$, $E_{\infty0}$) the circle rotates the
+$\CP^1$-factor, and the $T$-fixed components are three: the proper
+transform of $F\times\{y_j\}$ ($\cong F$, since $S\subset F$ is a divisor),
+$F\times\{y_j'\}$ for the other fixed point $y_j'$ of $E_j$, and the
+section $\PP(T_{y_j}E_j)\cong S$ of the exceptional divisor (the section
+$\PP(N_{S/F})$ lies in the proper transform of $F\times\{y_j\}$). As a
+check, the total Betti number of $M^T$ is
+$2\cdot122+2\,(40+40+42)=488=b(M)$, as Lemma~\ref{lem:perfect} requires.
+Within $C_2'$ one has $\sum_F\lambda(F)=44+44+46=134>130=\lambda(C_2')$:
+the loss of $4$ comes from the overlap of the $5$-torsion of $S$ (degrees
+$3,4$ after the index shift) with the $2$-torsion of the copies of $F$
+(degrees $2$--$5$). Altogether $\sum_{F\subset M^T}\lambda(F)=528\ge
+\lambda(M)=524\ge\sum_j\lambda(C_j')=520$, consistent with Step~1.
+\end{remark}
+
+\begin{remark}[a second argument via Li's theorem]
+By a theorem of H.~Li \cite[Thm.~0.1]{Li2003}, for a Hamiltonian circle
+action on a compact symplectic manifold $C$,
+$\pi_1(C)\cong\pi_1(F_{\min})\cong\pi_1(F_{\max})\cong\pi_1(C_{\mathrm{red}})$. If $\dim C=6$ and $C$ is simply
+connected, its four-dimensional fixed components (necessarily extremal)
+are simply connected, hence torsion-free, and the torsion-carrying
+fixed components of $M$ are themselves components of $\Fix(g)$; the
+inequality of Step~1 then gives the claim. If some $C_j$ is not simply
+connected, Lemma~\ref{lem:perfect} prevents cancellation of its
+$H_2$-torsion. This gives an alternative route to Theorem~\ref{thmB}; we
+have not written it out in full.
+\end{remark}
+
+\subsection{Dimensional limitation of transverse centers (heuristic)}\label{subsec:dimlimit}
+
+The following is a heuristic, not a theorem. In Theorem~\ref{thmA} the extra torsion of the fixed components is
+introduced by a blow-up whose center $W$ meets $\Fix(g)$ cleanly and
+satisfies \eqref{eq:transverse}. If the inserted torsion is that of a
+surface ($S$, real dimension $4$, with odd-prime torsion in $H_1$), then
+$W$ must contain $S$ and, by \eqref{eq:transverse}, the normal directions
+$E^{\ne}$ of the fixed component (real dimension $\ge2$), and must have
+real codimension $\ge4$ (a divisor blow-up is the identity). Hence
+$\dim_\R M\ge4+2+4=10$. The argument assumes that the inserted torsion
+comes from a surface contained in the center; it is independent of, and
+weaker than, Theorem~\ref{thmB}.
+
+%======================================================================
+\section{Higher dimensions, earlier claims, and open problems}\label{sec:higher}
+
+\subsection{K\"ahler examples in dimensions twelve and sixteen}\label{subsec:higher}
+
+\begin{remark}[dimension $12$]\label{rem:dim12}
+Let $X^8=\Bl_{S\times\{t_1\}\sqcup S\times\{t_2\}}(F\times\CP^1)$ and
+$M^{12}=X^8\times Y$, $C=X^8\times\CP^1$. Then $M^{12}$ is simply connected
+K\"ahler, and the product mechanism gives
+$\lambda(M^{12})-4\lambda(C)=8$; with $b(F)=40$, $b(S)=42$ one gets
+$\lambda(M^{12})=1400$ and $\#\Fix=1392$. The gap relies on
+Lemma~\ref{lem:torF} (no $5$-torsion in $F$); with $5$-torsion of
+rank $\ge1$ in $F$ it would vanish.
+\end{remark}
+
+\begin{remark}[dimension $16$]\label{rem:dim16}
+In $P=\CP^1\times\CP^5$ embed disjointly (by
+\cite[Lemma~3.2]{OpenAI22}) a bielliptic surface $S_2$ with $(\Z/2)^2$
+torsion and three bielliptic surfaces $S_3^{(i)}$ with $\Z/3$ torsion
+into $\CP^5$, and blow up $P$ along $S_2\times\CP^1$ (codimension $3$) and
+$S_3^{(i)}\times\{t\}$ (codimension $4$). For the resulting complex sixfold $X$ and
+$M=X\times Y$ one finds $\lambda(M)=1232$, $4\lambda(X\times\CP^1)=1216$
+(two independent scripts, \texttt{computations/homology/indep.py} and
+\texttt{computations/homology/x12.py}); the
+family with $3m$ copies of $S_3$ and $m$ copies of $S_2\times\CP^1$ has
+$\lambda=96+1136m$ and gap $16m$. Here $\#\Fix=1216$ also equals the Bai--Xu cyclic bound
+$\lambda_1(M)$ (minimal Chern number $1$), as recomputed with
+\texttt{computations/homology/indep.py}. This is a rearrangement of the centers of
+\cite{OpenAI22} and is not claimed as a separate result.
+\end{remark}
+
+\subsection{Relation to an earlier claim}\label{subsec:Ma}
+
+Ma's preprint \cite[Thm.~1.5]{Ma2013} asserts that the minimal number of
+fixed points of a nondegenerate Hamiltonian diffeomorphism of a closed
+symplectic manifold equals the ordinary Morse number (see also
+\cite{VibeMathed}, cited for context only). This assertion is already
+refuted by \cite[Thm.~1.1]{OpenAISept23}, on a closed symplectic manifold
+of real dimension $12$ with $\pi_1=A_5^k$, which is not simply connected,
+and by the simply connected examples of
+\cite{OpenAIStable,OpenAI22,OpenAICompanion} in higher dimensions. For the
+manifold $M$ of Theorem~\ref{thmA}, $\Morse(M)=\SM(M)=\lambda(M)$ by
+Theorem~\ref{thm:smale}, while $\#\Fix(\phi_H^1)=\lambda(M)-4$. Theorem~\ref{thmA}
+is thus the first simply connected example below the stable Morse number
+in real dimension less than $22$, and it refutes the assertion of
+\cite{Ma2013} on a simply connected K\"ahler manifold of real dimension
+$10$. \todo{we have not read \cite{Ma2013} directly; the theorem number and
+statement are taken from \cite{OpenAISept23}.}
+
+\subsection{Open problem: dimension eight}
+
+By Theorems~\ref{thmA} and~\ref{thmB} and Proposition~\ref{prop:six}, among
+simply connected closed symplectic manifolds of real dimension at least
+$6$ the minimal real dimension of a counterexample to \eqref{eq:SMconj}
+is $8$ or $10$ (Corollary~\ref{cor:mindim}). Simply connected real
+dimension $4$ remains open in the sense of \S\ref{sec:six}, and
+non-simply-connected manifolds of real dimension $4$, $6$, $8$, $10$ are
+not addressed here.
+
+\begin{problem}\label{prob:dim8}
+Does there exist a closed (simply connected, K\"ahler) symplectic
+$8$-manifold $M$ and a nondegenerate Hamiltonian diffeomorphism with fewer
+than $\SM(M)$ fixed points?
+\end{problem}
+
+By Proposition~\ref{prop:nec8}, such an $M$ must have $N=1$ and
+Brauer-type torsion $T_2\ne0$ whose dominant primes differ from those of
+$T_3$. By Theorem~\ref{thmB}, the Hamiltonian cannot be obtained by
+perturbing a finite-order element of a Hamiltonian torus action. A
+positive answer requires either a finite-order Hamiltonian diffeomorphism
+not contained in any Hamiltonian torus action, or an entirely different
+mechanism. A negative answer requires a Floer-theoretic obstruction
+stronger than Theorem~\ref{thm:BX}, which by Proposition~\ref{prop:nec8} is
+not sufficient in general.
+
+%======================================================================
+\appendix
+\section{Computational corroboration}\label{app:milp}
+
+The script \texttt{computations/milp/lpsearch2.py} formulates a mixed-integer linear program
+modelling the torsion bookkeeping of the finite-order/torus mechanism in
+real dimension $2n$. Variables are nonnegative weights $x$ of
+``torsion pieces'' $(\text{prime}\in\{p,q\},f,(a,b),c,j,\nu,\varepsilon)$: a
+pair of Poincar\'e-dual cyclic summands in degrees $a<b$ of a $T$-fixed
+component of complex dimension $f$, contained in a component $C$ of
+$\Fix(g)$ of complex dimension $c$ with label $j\le K$, with index $2\nu$
+in $C$ and $2(\nu+\varepsilon)$ in $M$. Constraints: Poincar\'e duality of
+the torsion profiles of $M$ and of each $C$; no torsion of $M$ in degrees
+$0,1$; uniqueness of minimum and maximum components in each $C$ and
+globally; if $F=C$ then $C$ contains no other piece; total weight $\le1$.
+The objective is the normalized gain
+$\sum_k\max(\text{profile}_M(k))-\sum_C\sum_k\max(\text{profile}_C(k))$,
+linearized with binary selectors. The modelling of the torsion of $C$ as
+the sum of the shifted torsion of its fixed components is justified by
+Corollary~\ref{cor:torsionformula}, so no extra perfectness hypothesis is
+needed.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+real dim & setting & max normalized gain\\
+\midrule
+$8$ & $K=2,3$; with or without $H_1$-torsion in $C$ & $0$\\
+$10$ & $K=2,3$, no $H_1$-torsion in $C$ & $1/3$\\
+$10$ & $K=3$ unrestricted & $1/2$\\
+$12$ & $K=2,3$ & $1$ (positive control)\\
+$10$ & forbid $6$-dim $F$ / Brauer-type $(2,3)$ $F$ / surfaces / $8$-dim $C$ & $0$ in each case\\
+\bottomrule
+\end{tabular}
+\caption{Results (\texttt{computations/milp/run\_lp.py}, \texttt{computations/milp/necessity.py}).}
+\end{table}
+
+In dimension $10$ the optimal configurations contain an $8$-dimensional
+$C$ whose minimum and maximum (or saddles) are $6$-dimensional
+Brauer-type components and which contains torsion surfaces of the other
+prime at index $2$; by Guillemin--Sternberg birational cobordism
+\cite{GuilleminSternberg1989}, such a surface is a codimension-$2$
+symplectic submanifold of a reduced space of Brauer type, which led to the
+construction of \S\ref{sec:F}. \emph{Caveats:} this is an LP relaxation
+with real weights and two primes, it encodes only the listed necessary
+conditions and not realizability, and it is used only as corroboration;
+Theorem~\ref{thmB} has a complete hand proof.
+
+\section{Machine verification of the symmetroid and the quintic}\label{app:sage}
+
+All paths are relative to the repository root. In exact arithmetic over
+$\Q$ (and over $\overline{\Q}$ where stated):
+\begin{itemize}
+\item \texttt{computations/sage/q10.sage} (random seed $7$) produces the web
+  and the quintic and verifies: the character $f(gx)=\zeta^3f(x)$;
+  irreducibility of $f$ over $\Q$; that the saturated Jacobian ideal of $f$
+  has Hilbert polynomial $10$ and equals its radical and the saturated
+  ideal of $3\times3$ minors of $A$; that the coordinate points lie on $B$
+  and are smooth points (gradients $(0,0,-1728,0)$, $(0,0,0,-875)$,
+  $(0,-640,0,0)$, $(-672,0,0,0)$ at $p_0,\dots,p_3$); that the web has no
+  base points; that a general (non-invariant) web also has total Tjurina
+  number $10$; that the invariant quintic $Q$ is smooth, avoids the
+  coordinate points and the nodes, and that $B\cap\{Q=0\}$ is a smooth curve
+  (Hilbert polynomial $20t-50$: degree $20$, genus $51$).
+\item \texttt{computations/sage/beauville\_ii.sage}: the rank-$\le1$ locus
+  of the web is empty, and Beauville's condition (ii) holds at each of the
+  ten rank-$2$ points, computed exactly over $\overline{\Q}$.
+\item \texttt{computations/sage/defect2.sage}: the ideal of the nodes is
+  radical of degree $10$, and its Hilbert function is $1,4,10,10,\dots$, so
+  the nodes impose independent conditions on quadrics.
+\item \texttt{computations/sage/bF2.sage}: the toric resolution of
+  $\frac15(1,1,4)$ by iterated star subdivision has $7$ rays and $9$ smooth
+  maximal cones; an independent construction of the fan gives the same
+  result.
+\item \texttt{computations/sage/symm.sage}: auxiliary experiments with
+  random invariant webs.
+\end{itemize}
+The homology bookkeeping of \S\ref{sec:ten} is implemented twice, with
+identical results: \texttt{computations/homology/lam.py} together with
+\texttt{w10.py} tracks torsion profiles, and
+\texttt{computations/homology/indep.py} together with
+\texttt{m10\_indep.py} tracks degreewise integral groups with Künneth.
+\texttt{computations/homology/x12.py} contains the higher-dimensional
+scans. The MILP of Appendix~\ref{app:milp} is
+\texttt{computations/milp/lpsearch2.py}, run by
+\texttt{computations/milp/run\_lp.py} and \texttt{computations/milp/necessity.py}.
+
+\section*{Statement on the use of AI}
+The results in this manuscript were found, checked and written up by
+Claude (Anthropic) agents working under the direction of the author.
+The computations listed above were run by those agents. The manuscript
+has not undergone human peer review.
+
+\printbibliography
+
+\end{document}

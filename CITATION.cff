@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: >-
+  If you use this paper or its computations, please cite it as below.
+  Please also cite the OpenAI preprints listed in UPSTREAM.md.
+type: software
+title: 'Hamiltonian fixed points below the stable Morse number in dimension ten'
+version: 0.1.0
+date-released: '2026-10-09'
+authors:
+  - name: '[AUTHOR NAME]'
+license: Apache-2.0
+abstract: >-
+  A simply connected closed Kahler manifold of real dimension 10 with a
+  nondegenerate Hamiltonian diffeomorphism having lambda(M) - 4 fixed points,
+  fewer than the stable Morse number; the count equals the Bai-Xu cyclic
+  integral Floer bound. No counterexample exists in real dimension 6, and in
+  dimension 8 no finite-order element of a Hamiltonian torus action can
+  produce one after perturbation. The results were found and checked by
+  Claude (Anthropic) agents under the repository owner's direction. No human
+  peer review has taken place and nothing is formalized in Lean; no
+  historical-priority claim is made.
+keywords:
+  - Arnold conjecture
+  - stable Morse number
+  - Hamiltonian fixed points
+  - Artin-Mumford threefold
+  - Floer homology
+references:
+  - type: article
+    title: 'Hamiltonian Fixed Points Below the Stable Morse Number in Dimension Twenty-Two'
+    authors:
+      - name: OpenAI
+    repository-code: 'https://github.com/openai/math'
+    commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb

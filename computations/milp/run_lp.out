@@ -1,0 +1,28 @@
+forbid_C_H1tors=True dim M=8 K=2: max normalized gain=-0.000000  status=0
+forbid_C_H1tors=True dim M=10 K=2: max normalized gain=0.333333  status=0
+   x=0.1667 prime=p dimF=4 pair=(1,2) C=dim8#1 nu=1 eps=0 mu=1
+   x=0.1667 prime=p dimF=4 pair=(1,2) C=dim8#1 nu=1 eps=1 mu=2
+   x=0.3333 prime=q dimF=6 pair=(2,3) C=dim8#1 nu=0 eps=1 mu=1
+   x=0.3333 prime=q dimF=6 pair=(2,3) C=dim8#1 nu=1 eps=0 mu=1
+forbid_C_H1tors=True dim M=12 K=2: max normalized gain=1.000000  status=0
+   x=0.2500 prime=p dimF=4 pair=(1,2) C=dim10#1 nu=1 eps=1 mu=2
+   x=0.2500 prime=p dimF=4 pair=(1,2) C=dim10#1 nu=2 eps=0 mu=2
+   x=0.2500 prime=q dimF=4 pair=(1,2) C=dim10#1 nu=1 eps=0 mu=1
+   x=0.2500 prime=q dimF=4 pair=(1,2) C=dim10#1 nu=2 eps=1 mu=3
+forbid_C_H1tors=True dim M=8 K=3: max normalized gain=-0.000000  status=0
+forbid_C_H1tors=True dim M=10 K=3: max normalized gain=0.333333  status=0
+   x=0.3333 prime=p dimF=6 pair=(2,3) C=dim8#0 nu=0 eps=1 mu=1
+   x=0.3333 prime=p dimF=6 pair=(2,3) C=dim8#0 nu=1 eps=0 mu=1
+   x=0.1667 prime=q dimF=4 pair=(1,2) C=dim8#0 nu=1 eps=0 mu=1
+   x=0.1667 prime=q dimF=4 pair=(1,2) C=dim8#0 nu=1 eps=1 mu=2
+forbid_C_H1tors=True dim M=12 K=3: max normalized gain=1.000000  status=0
+   x=0.2500 prime=p dimF=4 pair=(1,2) C=dim10#0 nu=1 eps=1 mu=2
+   x=0.2500 prime=p dimF=4 pair=(1,2) C=dim10#0 nu=2 eps=0 mu=2
+   x=0.2500 prime=q dimF=4 pair=(1,2) C=dim10#0 nu=1 eps=0 mu=1
+   x=0.2500 prime=q dimF=4 pair=(1,2) C=dim10#0 nu=2 eps=1 mu=3
+K=3 unrestricted dim M=8 K=3: max normalized gain=0.000000  status=0
+K=3 unrestricted dim M=10 K=3: max normalized gain=0.500000  status=0
+   x=0.2500 prime=p dimF=6 pair=(2,3) C=dim8#0 nu=0 eps=1 mu=1
+   x=0.2500 prime=p dimF=6 pair=(2,3) C=dim8#0 nu=1 eps=0 mu=1
+   x=0.2500 prime=q dimF=6 pair=(1,4) C=dim8#0 nu=0 eps=1 mu=1
+   x=0.2500 prime=q dimF=6 pair=(1,4) C=dim8#0 nu=1 eps=0 mu=1

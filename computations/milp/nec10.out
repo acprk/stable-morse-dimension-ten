@@ -1,0 +1,4 @@
+no 6-dim F : dim M=10 K=3: max normalized gain=0.000000  status=0
+no Brauer-type (2,3) 6-dim : dim M=10 K=3: max normalized gain=0.000000  status=0
+no surfaces : dim M=10 K=3: max normalized gain=0.000000  status=0
+6-dim only in C^8 as min/max but no surfaces & no 8-dim C : dim M=10 K=3: max normalized gain=0.000000  status=0
