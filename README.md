@@ -33,7 +33,7 @@ stable bound can fail.
 | Real dim. | Statement | Kind of proof |
 | --- | --- | --- |
 | 6 | No simply connected counterexample: for simply connected `M⁶` the Bai–Xu bound equals `λ(M) = SM(M)` (**Proposition 3.1**). | paper; uses Bai–Xu and Smale |
-| 8 | No counterexample from a **finite-order element of a Hamiltonian torus action, perturbed** (**Theorem B**). This covers all constructions known to us. Real dimension 8 remains open in general. | paper |
+| 8 | No counterexample from a **finite-order element of a Hamiltonian torus action, perturbed** (**Theorem B**). This covers all constructions known to us. For **any** Hamiltonian map of prime order, a counterexample needs a fixed component with `ℤ/PQ`-torsion in a single degree (**Proposition 6.8**, using Bai–Shelukhin–Wilkins–Xu). Real dimension 8 remains open in general. | paper |
 | 10 | **Kähler counterexample**: `#Fix = λ(M) − 4 = 520 < 524 = λ(M) ≤ SM(M)`, all fixed points nondegenerate and contractible. `#Fix` equals the Bai–Xu bound, so that bound is attained (**Theorem A**). | paper, plus computations |
 | 12, 16 | Further Kähler examples (remarks). | paper, plus computations |
 

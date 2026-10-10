@@ -1,6 +1,6 @@
 # Paper
 
-`main.tex` is the manuscript (19 pages); `main.pdf` is the compiled version. Build with
+`main.tex` is the manuscript (21 pages); `main.pdf` is the compiled version. Build with
 `./build.sh` (pdflatex + biber, biblatex). The author block is a placeholder.
 
 Citation-level details were completed in a second round (see

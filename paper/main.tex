@@ -41,6 +41,8 @@
 \DeclareMathOperator{\Morse}{Morse}
 \DeclareMathOperator{\Crit}{Crit}
 \DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\Ham}{Ham}
+\setlength{\emergencystretch}{3em}
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\Bl}{Bl}
 \DeclareMathOperator{\Sym}{Sym}
@@ -626,7 +628,7 @@ $F$ is a smooth projective threefold. Each $R_k$, a small neighbourhood
 of the exceptional set of $\rho_k$, deformation retracts onto the
 exceptional set $E=D_1\cup D_2\cup D_3\cup D_4$, where $D_i$ is the toric
 divisor of the interior ray $v_i=\frac i5(1,1,4)\bmod\Z^3$. In the fan
-(computed in \texttt{computations/sage/bF2.sage}) the maximal cones are
+(computed in \nolinkurl{computations/sage/bF2.sage}) the maximal cones are
 $\langle e_1,e_2,v_4\rangle$, $\langle e_3,e_1,v_1\rangle$,
 $\langle e_3,e_2,v_1\rangle$ and $\langle e_a,v_i,v_{i+1}\rangle$
 ($a=1,2$, $i=1,2,3$). Hence each $D_i$ is a smooth complete toric surface,
@@ -749,8 +751,8 @@ from duality: $\Tor H_2(F)_{(5)}\cong\Tor H_3(F)_{(5)}=0$ by Step~5.
 The exactness of Lemma~\ref{lem:torF} is essential. If
 $\Tor H_2(F)=(\Z/2)^2$, or if $F$ had $5$-torsion in degrees $2,3$, the
 gap of Theorem~\ref{thmA} (and of Remark~\ref{rem:dim12}) would collapse
-to $\le0$ (\texttt{computations/homology/w10.py},
-\texttt{computations/homology/lam.py}). Note that $H_3(U;\Z_{(5)})$ itself
+to $\le0$ (\nolinkurl{computations/homology/w10.py},
+\nolinkurl{computations/homology/lam.py}). Note that $H_3(U;\Z_{(5)})$ itself
 has order $25$ (contributions $E^\infty_{1,2}$ and $E^\infty_{3,0}$); it is
 killed in $F$ by the lens space boundary.
 \end{remark}
@@ -903,7 +905,7 @@ Without \eqref{eq:transverse} the lemma fails: blowing up $S\times\{y\}$
 with $y$ a pole, or $S\times E$, produces additional fixed components
 (copies of $S$ or $S\times\CP^1$ inside $E$) that carry torsion and destroy
 the gap; this is a direct computation with the bookkeeping of
-\texttt{computations/homology/lam.py}. See also
+\nolinkurl{computations/homology/lam.py}. See also
 \S\ref{subsec:dimlimit}.
 \end{remark}
 
@@ -1016,7 +1018,7 @@ The source of the gap is visible in Table~\ref{tab:torsion}: in $M$ the
 dominant prime is $5$ in degrees $3,6$ and $2$ in degrees $4,5$, so both
 primes contribute; in $C_j'$ the $2$- and $5$-torsion occupy the same
 degrees $3,4$ with equal multiplicity and are absorbed by the maximum.
-The script \texttt{computations/homology/m10\_indep.py} reproduces these
+The script \nolinkurl{computations/homology/m10_indep.py} reproduces these
 numbers. It hard-codes placeholder free ranks $b(F)=8$, $b(S)=11$ and
 prints $\lambda(M)=144$, $\sum\lambda(C_j')=140$, cyclic bound $140$; by
 Corollary~\ref{cor:counts} the gap $4$ is independent of these
@@ -1029,7 +1031,7 @@ With $a=19$ (Proposition~\ref{prop:Fhom}) and $\beta=40$
 $\lambda(C_j')=130$, $\#\Fix=520$, and the relative deficit is
 $4/524=1/131$. The value $b(F)=40$ was obtained twice, from two
 independent constructions of the toric fan (seven rays, nine smooth
-maximal cones; \texttt{computations/sage/bF2.sage}); it depends on the
+maximal cones; \nolinkurl{computations/sage/bF2.sage}); it depends on the
 choice of resolution, the gap does not. Over $\F_2$ one has
 $b(M;\F_2)=b(M)+2\cdot16=\#\Fix$, so the count also equals the total
 mod-$2$ Betti number; over $\F_5$, $b(M;\F_5)=b(M)+16<\#\Fix$.
@@ -1256,6 +1258,99 @@ $H_2$-torsion. This gives an alternative route to Theorem~\ref{thmB}; we
 have not written it out in full.
 \end{remark}
 
+\subsection{Hamiltonian maps of prime order outside torus actions}\label{subsec:primeorder}
+
+Theorem~\ref{thmB} concerns finite-order elements of Hamiltonian torus
+actions. For an arbitrary Hamiltonian diffeomorphism of prime order we
+still obtain a strong necessary condition, using a recent vanishing
+theorem of Bai--Shelukhin--Wilkins--Xu.
+
+\begin{proposition}\label{prop:primeorder}
+Let $(M,\omega)$ be a closed simply connected symplectic manifold of real
+dimension $8$, and let $g\in\Ham(M,\omega)$ have prime order $p'$. Write
+$\Fix(g)=C_1\sqcup\dots\sqcup C_r$, put $T_i=\Tor H_i(M;\Z)$, and suppose
+that
+\[
+ \sum_j\lambda(C_j)<\lambda(M),
+\]
+i.e.\ that perturbing $g$ as in Proposition~\ref{prop:perturb} with
+Morse functions attaining $\lambda(C_j)$ would beat $\lambda(M)$. Let $P$,
+$Q$ be primes with $d(T_2)=\rank_P T_2$ and $d(T_3)=\rank_Q T_3$. Then
+$P\ne Q$, and some component $C_j$ has, in a single degree, a torsion
+subgroup containing $\Z/PQ$. More precisely, either $C_j$ is a simply
+connected $6$-manifold with $\Z/PQ\subset\Tor H_2(C_j)$, or $C_j$ is not
+simply connected and $\Z/PQ$ embeds in $\Tor H_1(C_j)$ or $\Tor H_2(C_j)$.
+In particular $g$ is not a finite-order element of any Hamiltonian torus
+action (Theorem~\ref{thmB}).
+\end{proposition}
+
+\begin{proof}
+\emph{Step 1: Betti-number relations.}
+\begin{itemize}
+\item By \cite[Prop.~C.17(1)]{BSWX2026}, for every odd prime $p\ne p'$ the
+  Morse--Bott Floer complex of $g$ with coefficients in the Novikov field
+  over $\F_p$ has vanishing differential. Hence
+  $b(M;\F_p)=\sum_j b(C_j;\F_p)$ for all such $p$. (The local Floer
+  homology of a fixed component of a finite-order map is its ordinary
+  homology; \cite[Prop.~C.9]{BSWX2026}.)
+\item Taking $p$ larger than all torsion orders of $M$ and of the $C_j$
+  gives $b(M;\Q)=\sum_j b(C_j;\Q)$.
+\item For every prime $p$, the Morse--Bott spectral sequence gives
+  $b(M;\F_p)\le\sum_jb(C_j;\F_p)$.
+\end{itemize}
+Writing $b(X;\F_p)=b(X;\Q)+2\sum_i t^p_i(X)$, where $t^p_i(X)$ is the
+$p$-rank of $\Tor H_i(X)$, we obtain for every prime $p$
+\begin{equation}\label{eq:rho}
+ \sum_j\rho_p(C_j)\ \ge\ \rank_pT_2+\rank_pT_3,
+ \qquad \rho_p(X):=\tfrac12\textstyle\sum_it^p_i(X).
+\end{equation}
+Here we used $\sum_it^p_i(M)=2(\rank_pT_2+\rank_pT_3)$, by Poincar\'e duality and
+simple connectivity.
+
+\emph{Step 2: the torsion part of $\lambda$ for each component.} For each
+component, $\lambda(C_j)-b(C_j)=2\sum_i d(\Tor H_i C_j)=:2\tau_j$.
+\begin{itemize}
+\item If $C_j$ is a simply connected $6$-manifold, then
+  $\tau_j=2\,d(\Tor H_2C_j)$ and $\rho_p(C_j)=\rank_p\Tor H_2C_j$.
+\item For a $4$-manifold, $\tau_j=2\,d(\Tor H_1C_j)$ and
+  $\rho_p=\rank_p\Tor H_1 C_j$.
+\item For a non-simply-connected $6$-manifold, $\tau_j=2\,(d(\Tor H_1)+d(\Tor H_2))$ and
+  $\rho_p=\rank_p\Tor H_1+\rank_p\Tor H_2$.
+\item Components of dimension $\le2$ are torsion-free.
+\end{itemize}
+In all cases $\tau_j\ge2\max_p\rho_p(C_j)$. Equality with
+$2(\rho_P+\rho_Q)$ fails only if $P$- and $Q$-torsion coexist in a single
+degree.
+
+\emph{Step 3: conclusion.} The rational parts cancel by Step~1, so the
+hypothesis says $\sum_j\tau_j<2(d(T_2)+d(T_3))=2(\rank_PT_2+\rank_QT_3)$.
+\begin{itemize}
+\item If $P=Q$, then \eqref{eq:rho} gives
+  $\sum_j\tau_j\ge2\sum_j\rho_P(C_j)\ge2(\rank_PT_2+\rank_PT_3)$, a
+  contradiction.
+\item If $P\ne Q$ and no component mixes $P$- and $Q$-torsion in a single
+  degree, then $\tau_j\ge2(\rho_P(C_j)+\rho_Q(C_j))$ for every $j$.
+  Summing and using \eqref{eq:rho} for $P$ and for $Q$ gives
+  $\sum_j\tau_j\ge 2(\rank_PT_2+\rank_PT_3+\rank_QT_2+\rank_QT_3)$, again a
+  contradiction.
+\end{itemize}
+Hence some component mixes $P$- and $Q$-torsion in one degree, which is
+the stated alternative. The last sentence follows from Theorem~\ref{thmB}.
+\end{proof}
+
+\begin{remark}
+For $p=p'$ one also has equality in \eqref{eq:rho}, by the classical Smith
+inequality. Atallah--Shelukhin \cite[Thm.~G]{AtallahShelukhin2020} had
+earlier obtained similar statements in the monotone case.
+
+Hamiltonian finite-order maps that do not embed in a Hamiltonian circle
+action are known only in real dimension $4$. Chiang--Kessler
+\cite[\S5]{ChiangKessler2019} give an involution of
+$\CP^2\#6\overline{\CP^2}$; that it is Hamiltonian is proved in
+\cite[Cor.~1.8]{LiLiWu2022}. Whether such maps exist in higher dimensions
+is open \cite[Question~1.10]{LiLiWu2022}.
+\end{remark}
+
 \subsection{Dimensional limitation of transverse centers (heuristic)}\label{subsec:dimlimit}
 
 The following is a heuristic, not a theorem. In Theorem~\ref{thmA} the extra torsion of the fixed components is
@@ -1291,12 +1386,12 @@ torsion and three bielliptic surfaces $S_3^{(i)}$ with $\Z/3$ torsion
 into $\CP^5$, and blow up $P$ along $S_2\times\CP^1$ (codimension $3$) and
 $S_3^{(i)}\times\{t\}$ (codimension $4$). For the resulting complex sixfold $X$ and
 $M=X\times Y$ one finds $\lambda(M)=1232$, $4\lambda(X\times\CP^1)=1216$
-(two independent scripts, \texttt{computations/homology/indep.py} and
-\texttt{computations/homology/x12.py}); the
+(two independent scripts, \nolinkurl{computations/homology/indep.py} and
+\nolinkurl{computations/homology/x12.py}); the
 family with $3m$ copies of $S_3$ and $m$ copies of $S_2\times\CP^1$ has
 $\lambda=96+1136m$ and gap $16m$. Here $\#\Fix=1216$ also equals the Bai--Xu cyclic bound
 $\lambda_1(M)$ (minimal Chern number $1$), as recomputed with
-\texttt{computations/homology/indep.py}. This is a rearrangement of the centers of
+\nolinkurl{computations/homology/indep.py}. This is a rearrangement of the centers of
 \cite{OpenAI22} and is not claimed as a separate result.
 \end{remark}
 
@@ -1351,8 +1446,9 @@ Brauer-type torsion $T_2\ne0$ whose dominant primes differ from those of
 $T_3$. By Theorem~\ref{thmB}, the Hamiltonian cannot be obtained by
 perturbing a finite-order element of a Hamiltonian torus action. A
 positive answer requires either a finite-order Hamiltonian diffeomorphism
-not contained in any Hamiltonian torus action, or an entirely different
-mechanism. A negative answer requires a Floer-theoretic obstruction
+not contained in any Hamiltonian torus action, whose fixed set contains a
+component with $\Z/PQ$-torsion in a single degree
+(Proposition~\ref{prop:primeorder}), or an entirely different mechanism. A negative answer requires a Floer-theoretic obstruction
 stronger than Theorem~\ref{thm:BX}, which by Proposition~\ref{prop:nec8} is
 not sufficient in general.
 
@@ -1360,7 +1456,7 @@ not sufficient in general.
 \appendix
 \section{Computational corroboration}\label{app:milp}
 
-The script \texttt{computations/milp/lpsearch2.py} formulates a mixed-integer linear program
+The script \nolinkurl{computations/milp/lpsearch2.py} formulates a mixed-integer linear program
 modelling the torsion bookkeeping of the finite-order/torus mechanism in
 real dimension $2n$. Variables are nonnegative weights $x$ of
 ``torsion pieces'' $(\text{prime}\in\{p,q\},f,(a,b),c,j,\nu,\varepsilon)$: a
@@ -1391,7 +1487,7 @@ $12$ & $K=2,3$ & $1$ (positive control)\\
 $10$ & forbid $6$-dim $F$ / Brauer-type $(2,3)$ $F$ / surfaces / $8$-dim $C$ & $0$ in each case\\
 \bottomrule
 \end{tabular}
-\caption{Results (\texttt{computations/milp/run\_lp.py}, \texttt{computations/milp/necessity.py}).}
+\caption{Results (\nolinkurl{computations/milp/run_lp.py}, \nolinkurl{computations/milp/necessity.py}).}
 \end{table}
 
 In dimension $10$ the optimal configurations contain an $8$-dimensional
@@ -1410,7 +1506,7 @@ Theorem~\ref{thmB} has a complete hand proof.
 All paths are relative to the repository root. In exact arithmetic over
 $\Q$ (and over $\overline{\Q}$ where stated):
 \begin{itemize}
-\item \texttt{computations/sage/q10.sage} (random seed $7$) produces the web
+\item \nolinkurl{computations/sage/q10.sage} (random seed $7$) produces the web
   and the quintic and verifies: the character $f(gx)=\zeta^3f(x)$;
   irreducibility of $f$ over $\Q$; that the saturated Jacobian ideal of $f$
   has Hilbert polynomial $10$ and equals its radical and the saturated
@@ -1421,28 +1517,28 @@ $\Q$ (and over $\overline{\Q}$ where stated):
   number $10$; that the invariant quintic $Q$ is smooth, avoids the
   coordinate points and the nodes, and that $B\cap\{Q=0\}$ is a smooth curve
   (Hilbert polynomial $20t-50$: degree $20$, genus $51$).
-\item \texttt{computations/sage/beauville\_ii.sage}: the rank-$\le1$ locus
+\item \nolinkurl{computations/sage/beauville_ii.sage}: the rank-$\le1$ locus
   of the web is empty, and Beauville's condition (ii) holds at each of the
   ten rank-$2$ points, computed exactly over $\overline{\Q}$.
-\item \texttt{computations/sage/defect2.sage}: the ideal of the nodes is
+\item \nolinkurl{computations/sage/defect2.sage}: the ideal of the nodes is
   radical of degree $10$, and its Hilbert function is $1,4,10,10,\dots$, so
   the nodes impose independent conditions on quadrics.
-\item \texttt{computations/sage/bF2.sage}: the toric resolution of
+\item \nolinkurl{computations/sage/bF2.sage}: the toric resolution of
   $\frac15(1,1,4)$ by iterated star subdivision has $7$ rays and $9$ smooth
   maximal cones; an independent construction of the fan gives the same
   result.
-\item \texttt{computations/sage/symm.sage}: auxiliary experiments with
+\item \nolinkurl{computations/sage/symm.sage}: auxiliary experiments with
   random invariant webs.
 \end{itemize}
 The homology bookkeeping of \S\ref{sec:ten} is implemented twice, with
-identical results: \texttt{computations/homology/lam.py} together with
+identical results: \nolinkurl{computations/homology/lam.py} together with
 \texttt{w10.py} tracks torsion profiles, and
-\texttt{computations/homology/indep.py} together with
+\nolinkurl{computations/homology/indep.py} together with
 \texttt{m10\_indep.py} tracks degreewise integral groups with Künneth.
-\texttt{computations/homology/x12.py} contains the higher-dimensional
+\nolinkurl{computations/homology/x12.py} contains the higher-dimensional
 scans. The MILP of Appendix~\ref{app:milp} is
-\texttt{computations/milp/lpsearch2.py}, run by
-\texttt{computations/milp/run\_lp.py} and \texttt{computations/milp/necessity.py}.
+\nolinkurl{computations/milp/lpsearch2.py}, run by
+\nolinkurl{computations/milp/run_lp.py} and \nolinkurl{computations/milp/necessity.py}.
 
 \section*{Statement on the use of AI}
 The results in this manuscript were found, checked and written up by
