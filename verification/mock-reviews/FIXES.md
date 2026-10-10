@@ -61,7 +61,7 @@ Snapshot before revision: `verification/main.pre-review1.tex`. Compiled result: 
 - AI-use statement added before the bibliography.
 
 ## Round 2: citations (2026-10-09)
-Sources were fetched with curl and pdftotext into /tmp/cit: arXiv 0808.0613v7, 1507.02476, 2209.11165, math/0702114, 1604.08273, 1012.3530, Voisin's Inventiones PDF, and Deligne's Bourbaki exposé 402 from numdam.
+Sources were fetched: arXiv 0808.0613v7, 1507.02476, 2209.11165, math/0702114, 1604.08273, 1012.3530, Voisin's Inventiones PDF, and Deligne's Bourbaki exposé 402 from numdam.
 - **Clemens defect formula.** Original page not consulted. The paper cites Cynk, arXiv:math/0702114, §1 and Cor. 5.1, which states verbatim h^{1,1}(Ỹ) = 1+μ+δ and h^{1,2}(Ỹ) = C(3d/2−1,3) − 4C(d/2,3) − μ + δ, with δ the dependent conditions on forms of degree 3d/2−4. For d=4, μ=10, δ=0 this gives b_2 = 11 and b_3 = 0. The text says the Clemens page was not consulted. Todo closed.
 - **Harris–Tu.** Theorem number not located. The degree formula ∏ binom(n+j,n−r−j)/binom(2j+1,j) and "irreducible, arithmetically Cohen–Macaulay" are cited as quoted in Blekherman–Hauenstein–Ottem–Ranestad–Sturmfels (arXiv:1107.1846, §1). Since the variety is CM, a proper linear section has length equal to the degree, which is 10. Todo closed.
 - **Fulton.** Now cited only for the complete case (§5.2, pp. 101–103; page range from the Google Books table of contents). The paper gives a self-contained argument for R_k:
