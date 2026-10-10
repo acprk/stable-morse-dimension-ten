@@ -1389,10 +1389,39 @@ $M=X\times Y$ one finds $\lambda(M)=1232$, $4\lambda(X\times\CP^1)=1216$
 (two independent scripts, \nolinkurl{computations/homology/indep.py} and
 \nolinkurl{computations/homology/x12.py}); the
 family with $3m$ copies of $S_3$ and $m$ copies of $S_2\times\CP^1$ has
-$\lambda=96+1136m$ and gap $16m$. Here $\#\Fix=1216$ also equals the Bai--Xu cyclic bound
+$\lambda=96+1136m$ and gap $16m$, so the relative deficit is
+$16m/(96+1136m)\ge 1/77$, tending to $1/71$ as $m\to\infty$. Here $\#\Fix=1216$ also equals the Bai--Xu cyclic bound
 $\lambda_1(M)$ (minimal Chern number $1$), as recomputed with
 \nolinkurl{computations/homology/indep.py}. This is a rearrangement of the centers of
 \cite{OpenAI22} and is not claimed as a separate result.
+\end{remark}
+
+\begin{remark}[limits of surface centers in free ambients]\label{rem:surfacelimit}
+Suppose $X$ is obtained from a simply connected compact K\"ahler manifold
+with torsion-free homology by blowing up disjoint centers of the form
+$S\times B$, where $S$ is a surface and $B$ has torsion-free homology
+concentrated in even degrees. This is the method of \cite{OpenAI22}. Put
+$n=\dim_\C X$.
+
+By Proposition~\ref{prop:blowup}, a center $S\times B$ of complex
+codimension $c$ contributes its torsion in each parity list with profile
+$e_B(u)\,(u+\dots+u^{c-1})$, where $e_B$ is the even Poincar\'e polynomial
+of $B$ in $u=t^2$.
+\begin{itemize}
+\item For $n=5$ the only possibilities are $B=\mathrm{pt}$ with $c=3$ and
+  $B=\CP^1$ with $c=2$. Both give the profile $u+u^2$.
+\item For $n=4$ the only center is $B=\mathrm{pt}$ with $c=2$. Its torsion
+  lies in degrees $3,4$, and none lies in degree $2$.
+\end{itemize}
+In either case the profiles of different primes are proportional or
+occupy a single pair of dual degrees. A direct computation (same scripts)
+then gives $\lambda(X\times Y)=4\lambda(X\times\CP^1)$
+(\nolinkurl{computations/homology/surface_limit.py}).
+
+Hence the product construction $X\times Y$ of \cite{OpenAI22}, with such
+$X$, produces no deficit below real dimension $16$. Going below this
+requires torsion of a different shape. In Theorem~\ref{thmA} this is the
+Brauer torsion of $F$ together with a center that is not of product type.
 \end{remark}
 
 \subsection{Relation to an earlier claim}\label{subsec:Ma}

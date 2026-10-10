@@ -83,6 +83,7 @@ counterexample to the Morse-number Arnold bound* already gives a 12-dimensional 
   - `homology/`: integral homology and `λ` for the examples in real dimensions 10, 12 and 16.
     There are two independent implementations: a torsion-profile calculator (`lam.py`, `w10.py`,
     `x12.py`) and an explicit abelian-group calculation (`indep.py`, `m10_indep.py`).
+    `surface_limit.py` checks that surface-type centers give no deficit below real dimension 16.
   - `sage/`: the invariant web and its 10 nodes (`q10.sage`); Beauville's hypotheses
     (`beauville_ii.sage`); defect 0 of the double solid, giving `b₂(AM₅) = 11`
     (`defect2.sage`); the toric resolution of `1/5(1,1,4)`, giving `b(F) = 40` (`bF2.sage`);
