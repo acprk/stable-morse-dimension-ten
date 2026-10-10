@@ -327,8 +327,11 @@ minimal number of generators.
 \begin{remark}\label{rem:rezchikov}
 Rezchikov \cite[Thm.~1]{Rezchikov2022} phrases an integral lower bound as
 the minimal rank of a cochain complex of free $\Z$-modules with cohomology
-$H^*(M;\Z)$. His proof works with the $2N$-periodized Morse complex
-\cite[\S2.1]{Rezchikov2022}, so the bound obtained is the cyclic one,
+$H^*(M;\Z)$. His Floer complexes are built from cappings modulo the
+symplectic area only, and he explicitly avoids the integrally graded
+variant (\cite[\S2.1, Remark~2]{Rezchikov2022}: ``This allows one to define
+integrally graded Floer groups, which we will avoid in this paper''), so the
+grading is cyclic and the bound obtained is the cyclic one,
 consistent with Theorem~\ref{thm:BX}. Read with a $\Z$-grading, the
 statement would give $\#\Fix\ge\lambda(M)$, which Theorem~\ref{thmA}
 contradicts.
@@ -523,55 +526,84 @@ $X=\mathrm{AM}_5$ is simply connected and
 
 \begin{proof}
 \emph{Betti numbers.} By Lemma~\ref{lem:webfacts}(5) the ten nodes impose
-independent conditions on quadrics, so the defect of the nodal quartic
-double solid $\overline X$ vanishes. Clemens' formulas for double solids
-\cite{Clemens1983} \todo{page/number of the defect formula} give, for a
-quartic double solid with $s=10$ nodes and defect $\delta=0$,
-$b_3=20-2s+2\delta=0$ for the small resolution and hence for $X$, and
-$b_2(X)=1+s+\delta=11$. This agrees with the Euler characteristic: a
-quartic with ten nodes has $\chi=24-10=14$, so
-$\chi(\overline X)=2\chi(\PP^3)-14=-6$, and replacing each node by a
+independent conditions on quadrics. For a double solid branched along a
+surface of degree $d$ whose only singularities are $\mu$ nodes, Clemens'
+defect $\delta$ is the number of dependent conditions imposed by the nodes
+on forms of degree $\tfrac32d-4$, and the big resolution $\widetilde Y$
+(blow-up of the nodes) has
+\[
+  h^{1,1}(\widetilde Y)=1+\mu+\delta,\qquad
+  h^{1,2}(\widetilde Y)=\tbinom{3d/2-1}{3}-4\tbinom{d/2}{3}-\mu+\delta
+\]
+\cite{Clemens1983}; we use the formulation of \cite[\S1 and
+Cor.~5.1]{Cynk2008}, which states these formulas verbatim (we have not
+consulted the page of \cite{Clemens1983} where they appear). Here
+$d=4$, $\mu=10$, and the forms have degree $2$, so $\delta=0$ and
+$h^{1,1}(X)=11$, $h^{1,2}(X)=10-0-10+0=0$. Since $h^{3,0}=h^{2,0}=0$
+for a quartic double solid, $b_3(X)=0$ and $b_2(X)=11$. This agrees with
+the Euler characteristic: a quartic with ten nodes has $\chi=24-10=14$,
+so $\chi(\overline X)=2\chi(\PP^3)-14=-6$, and replacing each node by a
 quadric adds $3$, giving $\chi(X)=24=2+2\cdot11$.
 
-\emph{Nonzero $2$-torsion.} The web is base point free and satisfies
-Beauville's condition (ii) (Lemma~\ref{lem:webfacts}(1),(4)). These are
-the hypotheses of \cite[\S6.3]{Beauville2015}, which then gives a nonzero
-$2$-torsion class in $H^3(X;\Z)$ (equivalently a nonzero element of the
-Brauer group), following \cite{ArtinMumford1972}.
+\emph{Nonzero $2$-torsion and simple connectivity.} The web is base point
+free and satisfies Beauville's condition (ii)
+(Lemma~\ref{lem:webfacts}(1),(4)). These are exactly the hypotheses of
+\cite[\S6.3]{Beauville2015}. Under them Beauville shows that the
+discriminant has ten ordinary double points and no other singularities,
+and \cite[Thm.~6 and its proof]{Beauville2015} shows that the blown-up
+double solid $X$ is unirational and that $\Tor H^3(X;\Z)$ contains a
+nonzero element of order $2$. Unirational smooth projective varieties are
+simply connected (Serre), so $\pi_1(X)=1$.
 
-\emph{Exactness and simple connectivity, by deformation.} We do not know
-whether the computation of \cite{ArtinMumford1972} that the torsion is
-exactly $\Z/2$ applies verbatim to every web satisfying (i) and (ii); we
-therefore deform to a general web. Let $\Gr=\Gr(4,\Sym^2\C^4)$ (irreducible)
-and let $\mathcal D\subset\PP^3\times\Gr$ be the relative rank-$\le2$
-scheme and $\mathcal S\supset\mathcal D$ the relative singular scheme of
-the symmetroids; $\mathcal S$ is proper over $\Gr$. The partial derivatives
-of $\det A_\Lambda$ are combinations of $3\times3$ minors, so
-$\mathcal D_\Lambda\subset\mathcal S_\Lambda$. When $\mathcal D_\Lambda$ is
-finite it has the expected codimension $3$ and length equal to the degree
-$10$ of the corank-$2$ locus of symmetric $4\times4$ matrices
-\cite{HarrisTu1984} \todo{confirm that the Harris--Tu degree computes
-scheme-theoretic length in the expected-codimension case}. Hence
-$\operatorname{length}\mathcal S_\Lambda\ge10$ whenever it is finite. On
-the open locus over which $\mathcal S$ is quasi-finite, the fibre length is
-upper semicontinuous, and the \'etale locus of a finite flat family is
-open; hence
+\emph{Exactness, by deformation.} Beauville's argument gives
+$\Tor H^3\ne0$, and Voisin \cite[proof of Cor.~2.6]{Voisin2015}
+observes that every nodal quartic double solid has a unirational
+parametrization of degree $2$, so the torsion is killed by $2$. We could
+not find a source stating that $\Tor H^3\cong\Z/2$ (rather than
+$(\Z/2)^k$) for \emph{every} web satisfying (i) and (ii). Endra{\ss}
+\cite[Lemma~1.2]{Endrass1999} embeds the torsion into a group of even
+sets of nodes, but we have not computed that group for our web.
+We therefore deform to the Artin--Mumford example, for which
+$\Tor H^3\cong\Z/2$ \cite{ArtinMumford1972}, \cite[Constr.~2.2]{Deligne1973}.
+Since $\Tor H^3$ is a birational invariant of smooth projective
+threefolds \cite[Prop.~2.1]{Deligne1973}, this holds for every smooth
+projective model of that example, in particular for the blown-up double
+solid of the corresponding symmetroid (\cite[\S6.3]{Beauville2015}).
+\todo{confirm that the Artin--Mumford example of \cite{Deligne1973} is
+birational to a double solid branched along a quartic symmetroid
+satisfying (i) and (ii); \cite[\S6.3]{Beauville2015} and Cossec state that
+the Artin--Mumford example is such a double solid.}
+
+Let $\Gr=\Gr(4,\Sym^2\C^4)$ (irreducible) and let
+$\mathcal D\subset\PP^3\times\Gr$ be the relative rank-$\le2$ scheme and
+$\mathcal S\supset\mathcal D$ the relative singular scheme of the
+symmetroids; $\mathcal S$ is proper over $\Gr$. The partial derivatives of
+$\det A_\Lambda$ are combinations of $3\times3$ minors, so
+$\mathcal D_\Lambda\subset\mathcal S_\Lambda$. The variety $\Sigma_2\subset
+\PP^9$ of symmetric $4\times4$ matrices of rank $\le2$ is irreducible,
+arithmetically Cohen--Macaulay, of codimension $3$ and degree $10$; the
+degree is the case $n=4$, $r=2$ of the Harris--Tu formula
+$\prod_{j=0}^{n-r-1}\binom{n+j}{n-r-j}/\binom{2j+1}{j}$
+\cite{HarrisTu1984} (we use the statement as quoted in
+\cite[\S1]{BHORS2012}). When $\mathcal D_\Lambda$ is finite, it is a proper
+linear section of the Cohen--Macaulay variety $\Sigma_2$, so its length
+equals $\deg\Sigma_2=10$. Hence $\operatorname{length}\mathcal S_\Lambda\ge10$
+whenever it is finite. On the open locus over which $\mathcal S$ is
+quasi-finite, the fibre length is upper semicontinuous, and the \'etale
+locus of a finite flat family is open; hence
 \[
   U_0=\{\Lambda:\mathcal S_\Lambda\text{ is reduced of length }10\}
 \]
-is Zariski open in $\Gr$. It contains the general web (the
-Artin--Mumford case) and our web (Lemma~\ref{lem:webfacts}(2)); being a
-nonempty Zariski open subset of an irreducible variety, it is connected.
-Over $U_0$ the nodes form a finite \'etale multisection, and by the
-holomorphic Morse lemma with parameters the double solids are locally
-analytically of the form $w^2=y_1^2+y_2^2+y_3^2$ times the base near the
-nodes. Blowing up the multisection therefore gives a smooth proper family,
-and by Ehresmann's theorem all members are diffeomorphic. For a general
-quartic symmetroid, Artin and Mumford prove $\Tor H^3(\widetilde X;\Z)=\Z/2$
-for the blown-up double solid $\widetilde X$, which is unirational
-\cite{ArtinMumford1972}, \cite[\S6.3]{Beauville2015}, hence simply
-connected (Serre). Therefore $X$ is simply connected with
-$\Tor H^3(X;\Z)=\Z/2$. Universal coefficients and duality give
+is Zariski open in $\Gr$. It contains every web satisfying (i) and (ii)
+(by Beauville's statement above), in particular the Artin--Mumford web and
+our web (Lemma~\ref{lem:webfacts}(2)). Being a nonempty Zariski open subset
+of an irreducible variety, it is connected. Over $U_0$ the nodes form a
+finite \'etale multisection, and by the holomorphic Morse lemma with
+parameters the double solids are locally analytically of the form
+$w^2=y_1^2+y_2^2+y_3^2$ times the base near the nodes. Blowing up the
+multisection therefore gives a smooth proper family, and by Ehresmann's
+theorem all members are diffeomorphic. Therefore
+$\Tor H^3(X;\Z)\cong\Z/2$. Universal coefficients and duality give
 $\Tor H_2\cong\Tor H^3=\Z/2$ and $H_3\cong H^3=\Z/2$.
 \end{proof}
 
@@ -590,12 +622,24 @@ hence projective. Define
   F=U\cup_{\partial U}\textstyle\bigsqcup_kR_k
   =\text{the resolution of }X/G\text{ at its four singular points.}
 \]
-$F$ is a smooth projective threefold. Each $R_k$ is a smooth toric variety
-whose fan is simplicial with convex full-dimensional support, so its
-homology is free and concentrated in even degrees
-\cite[\S5.2]{Fulton1993} \todo{page}; it deformation retracts onto the
-union of the four compact exceptional toric surfaces, with Betti numbers
-$(1,4,4)$ (Euler characteristic $9$ = number of maximal cones).
+$F$ is a smooth projective threefold. Each $R_k$, a small neighbourhood
+of the exceptional set of $\rho_k$, deformation retracts onto the
+exceptional set $E=D_1\cup D_2\cup D_3\cup D_4$, where $D_i$ is the toric
+divisor of the interior ray $v_i=\frac i5(1,1,4)\bmod\Z^3$. In the fan
+(computed in \texttt{computations/sage/bF2.sage}) the maximal cones are
+$\langle e_1,e_2,v_4\rangle$, $\langle e_3,e_1,v_1\rangle$,
+$\langle e_3,e_2,v_1\rangle$ and $\langle e_a,v_i,v_{i+1}\rangle$
+($a=1,2$, $i=1,2,3$). Hence each $D_i$ is a smooth complete toric surface,
+$D_i\cap D_j=\varnothing$ for $|i-j|\ge2$, there are no triple
+intersections, and $D_i\cap D_{i+1}$ is the invariant curve
+$V(\langle v_i,v_{i+1}\rangle)\cong\CP^1$. A smooth complete toric surface
+has free homology concentrated in even degrees \cite[\S5.2,
+pp.~101--103]{Fulton1993}. An invariant curve on it is primitive in $H_2$,
+since it meets an adjacent invariant curve with intersection number $1$.
+Mayer--Vietoris along the chain $D_1\cup D_2\cup D_3\cup D_4$ therefore
+shows that $H_*(R_k)\cong H_*(E)$ is free and concentrated in even
+degrees. Its Betti numbers are $(1,4,4)$ (the Euler characteristic $9$ is
+the number of maximal cones).
 
 \begin{lemma}\label{lem:pi1F}
 $\pi_1(F)=1$.
@@ -751,8 +795,11 @@ $\langle\gamma^2\rangle$, which is generated by a meridian of
 $\widetilde\Delta$ and dies in $\widetilde S$. Here
 $H_1(\Sigma\setminus\Delta)=\Z/4$, because the hyperplane class $H$ of the
 quintic surface $\Sigma$ is primitive ($H^2=5$ is squarefree), so
-$\Delta\in|4H|$ has divisibility exactly $4$. \todo{theorem number in
-\cite{Nori1983}.}
+$\Delta\in|4H|$ has divisibility exactly $4$. The abelianness statement is
+\cite[Prop.~3.27]{Nori1983}, applied with $D=\Delta$ (smooth, so
+$r(\Delta)=0$ and the hypothesis $\Delta^2>2r(\Delta)$ holds) and
+$E=\varnothing$: the kernel of $\pi_1(\Sigma\setminus\Delta)\to\pi_1(\Sigma)
+=1$ is finitely generated abelian.
 Hence $\pi_1(S)=G=\Z/5$, $H_1(S)=\Z/5$, $\Tor H_2(S)\cong\Tor H_1(S)=\Z/5$
 and $H_3(S)=0$. For Betti numbers, $\chi$ of a smooth quintic surface is
 $55$ and $\Delta$ has $2g-2=\Delta\cdot(\Delta+K)=4H\cdot5H=100$, so
@@ -1081,9 +1128,11 @@ with $\F_q$ coefficients, since negative normal bundles are complex,
 hence oriented, so the Thom isomorphism applies. ``$\ge$'' for total
 dimensions: let $X_n=C^{\Z/q^n}$, where $\Z/q^n\subset S^1$. The group
 $\Z/q^{n+1}$ preserves $X_n$ and acts on it through
-$\Z/q^{n+1}/\Z/q^n\cong\Z/q$ with fixed set $X_{n+1}$. Smith theory
-for $\Z/q$ \cite[Ch.~III]{Bredon1972} gives $\dim H_*(X_{n+1};\F_q)\le
-\dim H_*(X_n;\F_q)$. A smooth action of $S^1$ on a compact manifold has
+$\Z/q^{n+1}/\Z/q^n\cong\Z/q$ with fixed set $X_{n+1}$. The Smith
+inequality for $\Z/q$ acting smoothly on the closed manifold $X_n$
+\cite[Prop.~III.4.16]{tomDieck1987} (stated for smooth $(\Z/q)^r$-manifolds
+as \cite[Prop.~2.1]{Franz2016}; see also \cite[Ch.~III]{Bredon1972}) gives
+$\dim H_*(X_{n+1};\F_q)\le\dim H_*(X_n;\F_q)$. A smooth action of $S^1$ on a compact manifold has
 finitely many isotropy groups; since $\bigcup_n\Z/q^n$ is dense in $S^1$,
 $X_n=C^{S^1}$ for $n$ large. Hence
 $\sum_F\dim H_*(F;\F_q)\le\dim H_*(C;\F_q)$. Equality of total dimensions
@@ -1094,12 +1143,16 @@ torsion order of $C$ or of any $F$ (or use \cite{Frankel1959,Kirwan1984}).
 The case of a general field reduces to its prime field.
 \end{proof}
 
-This is the classical Borel--Smith inequality for torus actions over
-$\F_p$ \cite[Ch.~3]{AlldayPuppe1993}, \cite[Ch.~III]{Hsiang1975},
-specialized to moment maps; we do not claim novelty for
-Lemma~\ref{lem:perfect}. \todo{precise theorem numbers in Allday--Puppe
-and Hsiang; literature search for prior explicit statements of
-$\F_p$-perfectness of moment maps.}
+Lemma~\ref{lem:perfect} combines the classical Smith inequality (see
+also \cite[Ch.~3]{AlldayPuppe1993}, \cite[Ch.~III]{Hsiang1975} for torus
+actions) with the Morse--Bott inequalities, and we do not claim novelty
+for it. We could not, however, find an explicit statement in the
+literature that moment maps of Hamiltonian circle actions are perfect over
+every $\F_p$. Perfectness is usually stated over $\Q$ or $\R$
+\cite{Frankel1959,Kirwan1984}, or over $\Z$ when the fixed points are
+isolated. The Atiyah--Bott--Kirwan argument via equivariant Euler classes
+does not apply over $\F_p$ when $p$ divides an isotropy weight, which is
+why we argue via Smith theory instead.
 
 \begin{corollary}\label{cor:torsionformula}
 In the situation of Lemma~\ref{lem:perfect}, for every prime $p$ and every
@@ -1249,21 +1302,33 @@ $\lambda_1(M)$ (minimal Chern number $1$), as recomputed with
 
 \subsection{Relation to an earlier claim}\label{subsec:Ma}
 
-Ma's preprint \cite[Thm.~1.5]{Ma2013} asserts that the minimal number of
-fixed points of a nondegenerate Hamiltonian diffeomorphism of a closed
-symplectic manifold equals the ordinary Morse number (see also
-\cite{VibeMathed}, cited for context only). This assertion is already
-refuted by \cite[Thm.~1.1]{OpenAISept23}, on a closed symplectic manifold
-of real dimension $12$ with $\pi_1=A_5^k$, which is not simply connected,
-and by the simply connected examples of
-\cite{OpenAIStable,OpenAI22,OpenAICompanion} in higher dimensions. For the
-manifold $M$ of Theorem~\ref{thmA}, $\Morse(M)=\SM(M)=\lambda(M)$ by
-Theorem~\ref{thm:smale}, while $\#\Fix(\phi_H^1)=\lambda(M)-4$. Theorem~\ref{thmA}
-is thus the first simply connected example below the stable Morse number
-in real dimension less than $22$, and it refutes the assertion of
-\cite{Ma2013} on a simply connected K\"ahler manifold of real dimension
-$10$. \todo{we have not read \cite{Ma2013} directly; the theorem number and
-statement are taken from \cite{OpenAISept23}.}
+For a closed symplectic manifold $(M,\omega)$, Ma \cite{Ma2013} writes
+$\mathrm{Arn}(M,\omega)$ for the minimal number of fixed points of a
+Hamiltonian symplectomorphism of $M$ and $\mathrm{Arn}_s(M,\omega)$ for
+the minimum over those all of whose fixed points are nondegenerate. He
+writes $\mathrm{Crit}(M)$ for the minimal number of critical points of a
+smooth function and $\mathrm{Crit}_m(M)$ for the minimal number of
+critical points of a Morse function. His Theorem~1.5 reads: ``Let
+$(M,\omega)$ be a close[d] symplectic manifold with symplectic form
+$\omega$. Then $\mathrm{Arn}(M,\omega)=\mathrm{Crit}(M)$ and
+$\mathrm{Arn}_s(M,\omega)=\mathrm{Crit}_m(M)$'' \cite[Thm.~1.5]{Ma2013}.
+There are no further hypotheses, and all fixed points are counted, not
+only those with contractible orbits. See also \cite{VibeMathed}, cited for
+context only.
+
+The second equality is already refuted by \cite[Thm.~1.1]{OpenAISept23},
+on a closed symplectic manifold of real dimension $12$ with $\pi_1=A_5^k$,
+which is not simply connected, and by the simply connected examples of
+\cite{OpenAIStable,OpenAI22,OpenAICompanion} in higher dimensions. The
+first equality is refuted by the degenerate example of
+\cite{OpenAIDegenerate} on the quadric $Q^3$. For the manifold $M$ of
+Theorem~\ref{thmA}, $\mathrm{Crit}_m(M)=\Morse(M)=\SM(M)=\lambda(M)$ by
+Theorem~\ref{thm:smale}, while $\#\Fix(\phi_H^1)=\lambda(M)-4$, so
+$\mathrm{Arn}_s(M,\omega)\le\mathrm{Crit}_m(M)-4$. Theorem~\ref{thmA} is
+thus the first simply connected example below the stable Morse number in
+real dimension less than $22$, and it refutes the second assertion of
+\cite[Thm.~1.5]{Ma2013} on a simply connected K\"ahler manifold of real
+dimension $10$.
 
 \subsection{Open problem: dimension eight}
 

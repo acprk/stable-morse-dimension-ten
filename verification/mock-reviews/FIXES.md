@@ -59,3 +59,34 @@ Snapshot before revision: `verification/main.pre-review1.tex`. Compiled result: 
 - All script paths are repository-relative (computations/homology, sage, milp).
 - Author block: "[AUTHOR NAME]".
 - AI-use statement added before the bibliography.
+
+## Round 2: citations (2026-10-09)
+Sources were fetched with curl and pdftotext into /tmp/cit: arXiv 0808.0613v7, 1507.02476, 2209.11165, math/0702114, 1604.08273, 1012.3530, Voisin's Inventiones PDF, and Deligne's Bourbaki exposé 402 from numdam.
+- **Clemens defect formula.** Original page not consulted. The paper cites Cynk, arXiv:math/0702114, §1 and Cor. 5.1, which states verbatim h^{1,1}(Ỹ) = 1+μ+δ and h^{1,2}(Ỹ) = C(3d/2−1,3) − 4C(d/2,3) − μ + δ, with δ the dependent conditions on forms of degree 3d/2−4. For d=4, μ=10, δ=0 this gives b_2 = 11 and b_3 = 0. The text says the Clemens page was not consulted. Todo closed.
+- **Harris–Tu.** Theorem number not located. The degree formula ∏ binom(n+j,n−r−j)/binom(2j+1,j) and "irreducible, arithmetically Cohen–Macaulay" are cited as quoted in Blekherman–Hauenstein–Ottem–Ranestad–Sturmfels (arXiv:1107.1846, §1). Since the variety is CM, a proper linear section has length equal to the degree, which is 10. Todo closed.
+- **Fulton.** Now cited only for the complete case (§5.2, pp. 101–103; page range from the Google Books table of contents). The paper gives a self-contained argument for R_k:
+  - R_k retracts onto the chain D_1 ∪ … ∪ D_4 of smooth complete toric surfaces;
+  - the fan adjacencies come from bF2.sage (maximal cones listed in the text);
+  - invariant curves are primitive;
+  - Mayer–Vietoris then shows the homology is free and even.
+  Todo closed.
+- **Nori.** Cited as Prop. 3.27 (D = Δ smooth, r = 0, E = ∅; kernel finitely generated abelian), via the statement quoted in Libgober arXiv:2108.02812, Cor. 2.5. Todo closed.
+- **Smith inequality.** Cited as tom Dieck, Transformation Groups, Prop. III.4.16, via Franz arXiv:1604.08273, Prop. 2.1 (smooth (Z_p)^r-manifolds, dim H*(X^G) ≤ dim H*(X)). Bredon Ch. III kept as a general reference.
+  - Literature search: no explicit statement found that moment maps are F_p-perfect.
+  - The text says so, and explains why Kirwan's Euler-class argument fails when p divides an isotropy weight.
+  - No novelty is claimed. Todo closed.
+- **Ma 2013 Thm 1.5.** Quoted verbatim from arXiv:0808.0613v7: "Let (M,ω) be a close symplectic manifold with symplectic form ω. Then Arn(M,ω) = Crit(M) and Arn_s(M,ω) = Crit_m(M)".
+  - The definitions of Arn, Arn_s, Crit and Crit_m are given in the text.
+  - There are no hypotheses, and all fixed points are counted.
+  - The first equality is refuted by [OpenAIDeg]; the second by [OpenAISept23] and by Theorem A. Todo closed.
+- **Bibliography.**
+  - Armstrong: issue no. 2 and DOI 10.1017/S0305004100042845 added.
+  - Rezchikov: title "Integral Arnol'd Conjecture" confirmed. Remark rem:rezchikov now quotes §2.1 Remark 2 ("integrally graded Floer groups, which we will avoid in this paper").
+  - Nori: DOI added.
+  - New entries: Cynk, Endraß 1999, Voisin 2015, Deligne 1973, BHORS, tom Dieck, Franz.
+- **Substantive point (exactness of Tor H^3 = Z/2 for every web with (i),(ii)): no source found.**
+  - Beauville §6.3 (Thm 6 and its proof) gives, under (i),(ii): Δ has exactly 10 ODPs, V is unirational (so π_1 = 1 without deformation), and Tor H^3 ≠ 0.
+  - Voisin (proof of Cor. 2.6) gives that the torsion is killed by 2.
+  - Endraß, Lemma 1.2, embeds the torsion into a group of even node sets; not computed for our web.
+  - Exactness is therefore still obtained by deformation, inside the open set U_0, which contains every (i),(ii)-web, to the Artin–Mumford example. That example has Tor H^3 ≅ Z/2 by Deligne, Bourbaki 402, Constr. 2.2, and Tor H^3 is a birational invariant (Deligne Prop. 2.1).
+  - Remaining todo: confirm that the AM/Deligne example is birational to an (i),(ii)-symmetroid double solid. Beauville §6.3 and Cossec assert this.
